@@ -1,13 +1,16 @@
 const electron      = require('electron');
 const app           = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-const Menu          = electron.Menu;
-const server        = require('./server-dev');
+const Server        = require('./Server');
+const MainMenu      = require('./MainMenu');
+
+let isDev = false;
 
 const includes = async () => {
 
 	try {
 		//~ Dev setting
+		isDev = true;
 
 		const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
 
@@ -21,7 +24,7 @@ const includes = async () => {
 			height : 820,
 		});
 
-		await server.run(mainWindow);
+		await Server.run(mainWindow, isDev);
 
 		//~ Dev setting
 
@@ -37,7 +40,7 @@ const includes = async () => {
 			app.quit();
 		});
 
-		require('./menu-app').add(Menu, app);
+		MainMenu.addTo(app);
 
 	} catch (err) {
 		console.log('Error: ', err);

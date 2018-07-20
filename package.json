@@ -26,6 +26,10 @@
   "homepage": "https://github.com/eagle7410/electron_docker_manager#readme",
   "dependencies": {
     "electron": "2.0.5",
-    "electron-devtools-installer": "2.2.4"
+    "electron-devtools-installer": "2.2.4",
+    "node-cmd": "3.0.0"
+  },
+  "devDependencies": {
+    "console-color": "https://github.com/eagle7410/console-color.git"
   }
 }

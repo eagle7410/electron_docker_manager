@@ -1,22 +1,23 @@
 const electron      = require('electron');
 const app           = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-const Menu          = electron.Menu;
-const server        = require('./server');
+const Server        = require('./Server');
+const MainMenu      = require('./MainMenu');
+let isDev = false;
 const includes = async () => {
 	try {
 		let mainWindow = new BrowserWindow({
 			width  : 400,
 			height : 820,
 		});
-		await server.run(mainWindow);
+		await Server.run(mainWindow, isDev);
 		
 		mainWindow.loadURL(`file://${__dirname}/html/index.html`);
 		mainWindow.on('closed', () => {
 			mainWindow = null;
 			app.quit();
 		});
-		require('./menu-app').add(Menu, app);
+		MainMenu.addTo(app);
 	} catch (err) {
 		console.log('Error: ', err);
 	}
