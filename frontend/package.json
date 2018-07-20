@@ -1,0 +1,25 @@
+{
+  "name": "frontend-app",
+  "version": "0.1.0",
+  "dependencies": {
+    "material-ui": "0.20.0",
+    "material-ui-password-field": "1.4.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "5.0.7",
+    "react-router-dom": "4.2.2",
+    "react-router-redux": "4.0.8",
+    "react-scripts": "1.1.1",
+    "redux": "3.7.2",
+    "redux-devtools-extension": "2.13.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "electron-devtools-installer": "2.2.3"
+  }
+}
