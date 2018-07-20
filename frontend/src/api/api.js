@@ -1,9 +1,9 @@
-import {save, reqFull, get} from '../utils/Req'
+import {reqFull, get} from '../utils/Req'
 
 const init = () => reqFull(get, '/init');
-const toggleService = service => reqFull(save, '/status', {service});
+const toggleContainer = (id, isRun) => reqFull(get, '/container-toggle-run', {isRun, id});
 
 export {
 	init,
-	toggleService,
+	toggleContainer,
 };

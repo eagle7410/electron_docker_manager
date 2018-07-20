@@ -1,11 +1,25 @@
-const Send     = require('./libs/Send');
-const Cmd      = require('./libs/Cmd');
-const timeout  = require('./libs/timeout');
-const commands = require('./constants/dockerCommand');
+const Send          = require('./libs/Send');
+const Cmd           = require('./libs/Cmd');
+const ConsoleParser = require('./libs/ConsoleParser');
+const timeout       = require('./libs/timeout');
+const commands      = require('./constants/dockerCommand');
 
 const route = (route, handler, method) => ({route, handler, method});
 
 const config = [
+	route('/container-toggle-run', async (res, action, data) => {
+			try {
+				await Cmd.get(commands.toggleRun(data));
+
+				let container = await ConsoleParser.getOneContainer(data.id);
+
+				Send.ok(res, action, {container})
+
+			} catch (e) {
+				console.error(e);
+				Send.err(res, action, e.message ? e.message : e);
+			}
+	}),
 	route('/init', async (res, action) => {
 		try {
 			let result = await Cmd.get(commands.version);
@@ -36,7 +50,7 @@ const config = [
 
 			response.isDockerLoad = isDockerLoad;
 
-			// parse docker images, containers
+			response.dockerInfo = await ConsoleParser.getDockerInfo();
 
 
 			Send.ok(res, action, response);

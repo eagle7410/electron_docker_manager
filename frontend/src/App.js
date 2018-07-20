@@ -7,7 +7,7 @@ import appRoutes from './const/app-routes'
 // Components
 import DataLoader from './componets/tools/DataLoader'
 import NeedDocker from './componets/NeedDocker/NeedDocker'
-import Contains from './componets/Contains/Contains'
+import Control from './componets/Control/Control'
 
 const App = () => (
 	<div className='App'>
@@ -16,16 +16,17 @@ const App = () => (
 			<img src='./img/Docker.png' className='App-logo' alt='logo'/>
 			<h1 className='App-title'>Welcome to docker manager</h1>
 		</header>
+
 		<div className='App-body container'>
 			<div className="row">
 				<Switch>
 					<Route path={appRoutes.needDocker} component={NeedDocker} />
-					<Route path={appRoutes.contains} component={Contains} />
+					<Route path={appRoutes.control} component={Control} />
 					<Route path='/' component={DataLoader}/>
 				</Switch>
 			</div>
-
 		</div>
+
 	</div>
 );
 

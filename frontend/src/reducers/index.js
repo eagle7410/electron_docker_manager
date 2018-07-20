@@ -1,12 +1,14 @@
 import { routerReducer } from 'react-router-redux';
 import {combineReducers} from 'redux';
 import {dataLoader} from './DataLoader'
-import {control} from './Control'
+import {containers} from './Containers'
+import {images} from './Images'
 
 const reducer = combineReducers({
 	routing: routerReducer,
 	dataLoader,
-	control,
+	containers,
+	images
 });
 
 export {reducer};

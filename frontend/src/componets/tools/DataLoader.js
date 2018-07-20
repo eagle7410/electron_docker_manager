@@ -20,7 +20,8 @@ class DataLoader extends Component {
 				return this.props.setError('Docker not loaded. Check this and reload');
 			}
 
-			this.props.history.push(routes.contains);
+			this.props.setDockerInfo(res.dockerInfo);
+			this.props.history.push(routes.control);
 
 		} catch (e) {
 			let setError;
@@ -61,5 +62,10 @@ export default connect(
 	dispatch => ({
 		clearError: () => dispatch({type: 'MOVE_ERROR'}),
 		setError: (err) => dispatch({type: 'SET_ERROR', data: err}),
+		setDockerInfo: ({containers, images}) => {
+			dispatch({type: 'CONTAINERS_INIT', data: containers});
+			dispatch({type: 'IMAGES_INIT', data: images});
+		}
 	})
 )(DataLoader);
+

@@ -6,13 +6,12 @@ const MainMenu      = require('./MainMenu');
 let isDev = false;
 const includes = async () => {
 	try {
-		let mainWindow = new BrowserWindow({
-			width  : 400,
-			height : 820,
-		});
+		let mainWindow = new BrowserWindow({});
+		mainWindow.maximize();
+
 		await Server.run(mainWindow, isDev);
-		
-		mainWindow.loadURL(`file://${__dirname}/html/index.html`);
+
+		mainWindow.loadURL('http://localhost:3000/');
 		mainWindow.on('closed', () => {
 			mainWindow = null;
 			app.quit();
