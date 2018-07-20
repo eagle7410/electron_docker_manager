@@ -6,7 +6,8 @@ let commands = {
 	containersAll:  'docker ps --all',
 	images : 'docker images',
 	toggleRun : ({id, isRun}) => `docker ${isRun ? 'stop' : 'start'} ${id}`,
-	getOneContainer : id => `docker ps -af id="${id}"`
+	getOneContainer : id => `docker ps -af id="${id}"`,
+	stop : ({id}) => `docker stop ${id}`,
 };
 
 

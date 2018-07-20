@@ -7,9 +7,9 @@ import {
 	TableRowColumn,
 	TableHeader,
 	TableHeaderColumn,
-
 } from 'material-ui/Table';
 import ButtonStatus from './ButtonStatus';
+import ButtonRename from './ButtonRename';
 
 const Contains = (state) => {
 
@@ -23,6 +23,7 @@ const Contains = (state) => {
 				<TableRow key={`cont_${n['CONTAINER ID']}`}>
 					<TableRowColumn>
 						<ButtonStatus row={n}/>
+						<ButtonRename row={n}/>
 					</TableRowColumn>
 					<TableRowColumn>{n['CONTAINER ID']}</TableRowColumn>
 					<TableRowColumn >{n.STATUS}</TableRowColumn>

@@ -7,18 +7,32 @@ const commands      = require('./constants/dockerCommand');
 const route = (route, handler, method) => ({route, handler, method});
 
 const config = [
+	route('/container-rename', async (res, action, data) => {
+		try {
+			// await Cmd.get(commands.toggleRun(data));
+			//
+			// let container = await ConsoleParser.getOneContainer(data.id);
+
+			// Send.ok(res, action, {container})
+			// TODO: clear
+			console.log('data is ', data);
+		} catch (e) {
+			console.error(e);
+			Send.err(res, action, e.message ? e.message : e);
+		}
+	}),
 	route('/container-toggle-run', async (res, action, data) => {
-			try {
-				await Cmd.get(commands.toggleRun(data));
+		try {
+			await Cmd.get(commands.toggleRun(data));
 
-				let container = await ConsoleParser.getOneContainer(data.id);
+			let container = await ConsoleParser.getOneContainer(data.id);
 
-				Send.ok(res, action, {container})
+			Send.ok(res, action, {container})
 
-			} catch (e) {
-				console.error(e);
-				Send.err(res, action, e.message ? e.message : e);
-			}
+		} catch (e) {
+			console.error(e);
+			Send.err(res, action, e.message ? e.message : e);
+		}
 	}),
 	route('/init', async (res, action) => {
 		try {
