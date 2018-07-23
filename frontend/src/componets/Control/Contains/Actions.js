@@ -9,7 +9,9 @@ import Divider from 'material-ui/Divider';
 
 import {
 	renameContainer,
-	deleteContainer
+	deleteContainer,
+	exportContainer,
+	saveFilePath
 } from '../../../api/api';
 
 const INPUT_DIALOG_PREFIX = 'INPUT_DIALOG';
@@ -37,6 +39,18 @@ const Actions = (state) => {
 		state.containerChange(updatedContainer);
 	}, state.renameClose);
 
+	const handleGet = () => handelTry(async () => {
+		const {path} = await saveFilePath();
+		// TODO: clear
+		console.log('path is ', {path, id});
+		if (!path) return false;
+		// TODO: clear
+		console.log('get ', {path, id});
+		await exportContainer({path, id});
+
+		alert('Get container is success :) ...');
+	});
+
 	return (
 	<span>
 		<IconMenu
@@ -47,8 +61,8 @@ const Actions = (state) => {
 			<Divider />
 			<MenuItem primaryText="Rename" onClick={() => state.renameOpen(handleRename)}/>
 			<MenuItem primaryText="Delete" onClick={() => state.confirmDeleteOpen(handleDelete)}/>
-			<MenuItem primaryText="Get" onClick={() => {alert('No implement')}} />
-			<MenuItem primaryText="Bash" onClick={() => {alert('No implement')}} />
+			<MenuItem primaryText="Get"    onClick={() => handleGet()} />
+			<MenuItem primaryText="Bash"   onClick={() => {alert('No implement')}} />
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>

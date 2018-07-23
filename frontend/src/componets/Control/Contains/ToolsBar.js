@@ -7,6 +7,11 @@ import IconContainers from 'material-ui/svg-icons/image/filter-none';
 import DialogCreateContainer from './DialogCreateContainer';
 
 const CREATE_CONTAINER_DIALOG_PREFIX = 'CREATE_CONTAINER_DIALOG';
+/* eslint-disable import/first */
+import {
+	openFilePath,
+	importContainer
+} from '../../../api/api';
 
 const Actions = (state) => {
 	const handelTry = async (call, finish) => {
@@ -18,6 +23,16 @@ const Actions = (state) => {
 			if (finish) finish();
 		}
 	};
+
+	const handelDowload = () => handelTry(async () => {
+		const {path} = await openFilePath();
+
+		if (!path) return false;
+
+		await importContainer({path});
+
+		alert('Import container is success :) ...');
+	});
 
 	return (
 		<span>
@@ -31,6 +46,7 @@ const Actions = (state) => {
 				label="Download container"
 				primary={true}
 				icon={<IconExport/>}
+				onClick={() => handelDowload()}
 			/>
 			<DialogCreateContainer/>
 	</span>

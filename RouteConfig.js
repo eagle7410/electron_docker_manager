@@ -1,8 +1,10 @@
-const Send          = require('./libs/Send');
-const Cmd           = require('./libs/Cmd');
-const ConsoleParser = require('./libs/ConsoleParser');
-const timeout       = require('./libs/timeout');
-const commands      = require('./constants/dockerCommand');
+const Send             = require('./libs/Send');
+const Cmd              = require('./libs/Cmd');
+const ConsoleParser    = require('./libs/ConsoleParser');
+const timeout          = require('./libs/timeout');
+const commands         = require('./constants/dockerCommand');
+const FileSystemDialog = require('./libs/FileSystemDialog');
+let windowMain = null;
 
 const route = (route, handler, method) => ({
 	route,
@@ -18,6 +20,30 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/container-import', async (res, action, data) => {
+		const out = await Cmd.get(commands.containerImport(data));
+		// TODO: clear
+		console.log('out ', out);
+
+		Send.ok(res, action);
+	}),
+	route('/container-export', async (res, action, data) => {
+		// TODO: clear
+		console.log('cmd ', commands.containerExport(data));
+		await Cmd.get(commands.containerExport(data));
+		Send.ok(res, action);
+	}),
+	route('/path-open', async (res, action) => {
+		const path = await FileSystemDialog.openFileFrom(windowMain);
+		Send.ok(res, action, {path : path || null});
+	}),
+	route('/path-save', async (res, action) => {
+		let path = await FileSystemDialog.saveFileTo(windowMain);
+
+		if (!path.includes('.tar')) path += '.tar';
+
+		Send.ok(res, action, {path : path || null});
+	}),
 	route('/container', async (res, action, data) => {
 
 		const id = await Cmd.get(commands.containerCreate(data));
@@ -85,6 +111,11 @@ const config = [
 ];
 
 class RouteConfig {
+	static setWindowMain (window) {
+		windowMain = window;
+
+		return this;
+	}
 	static get () {
 		return config;
 	}

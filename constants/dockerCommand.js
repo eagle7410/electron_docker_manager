@@ -11,6 +11,8 @@ let commands = {
 	containerRename : ({id , newname}) => `docker container rename ${id} ${newname}`,
 	containerDelete : ({id}) => `docker rm ${id}`,
 	containerCreate : ({name, image, portInner, portExternal, attach}) => `docker run -d --name ${name} -p ${portExternal}:${portInner} ${attach} ${image}`,
+	containerExport : ({path, id}) => `docker save -o="${path}" ${id}`,
+	containerImport : ({path}) => `docker load "${path}"`,
 };
 
 

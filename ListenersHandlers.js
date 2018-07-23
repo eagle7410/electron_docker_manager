@@ -35,7 +35,11 @@ class ListenersHandlers {
 
 	static apply (isDev) {
 		_isDev = isDev;
-		RouteConfig.get().map(this._config2Listen.bind(this));
+
+		RouteConfig
+			.setWindowMain(mainWindow)
+			.get()
+			.map(this._config2Listen.bind(this));
 	}
 }
 
