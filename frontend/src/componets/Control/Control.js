@@ -6,6 +6,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Contains from './Contains/Contains';
 import Images from './Images/Images';
 import DialogInput from '../tools/DialogInput'
+import DialogConfirm from '../tools/DialogConfirm'
 
 const Control = () => {
 
@@ -22,6 +23,7 @@ const Control = () => {
 				</Tabs>
 			</Paper>
 			<DialogInput />
+			<DialogConfirm />
 		</div>
 	);
 };

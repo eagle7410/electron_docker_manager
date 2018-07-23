@@ -30,7 +30,7 @@ class ListenersHandlers {
 	}
 
 	static _config2Listen (config) {
-		this.listen(`${(config.method || methods.get).toLowerCase()}->${config.route}`, config.handler);
+		this.listen(`${(config.method || methods.post).toLowerCase()}->${config.route}`, config.handler);
 	}
 
 	static apply (isDev) {

@@ -1,5 +1,4 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -7,24 +6,36 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
 
-import {renameContainer} from '../../../api/api';
+import {
+	renameContainer,
+	deleteContainer
+} from '../../../api/api';
 import {connect} from "react-redux";
 
 const INPUT_DIALOG_PREFIX = 'INPUT_DIALOG';
+const CONFIRM_DIALOG_PREFIX = 'CONFIRM_DIALOG';
 
 const Actions = (state) => {
-	const handleRename = async(dialog) => {
+	const id = state.row['CONTAINER ID'];
+	const handelTry = async (call, finish) => {
 		try {
-			const id = state.row['CONTAINER ID'];
-			let data = await renameContainer(id, dialog.input);
-
-			state.containerChange(data);
-			state.renameClose();
-
+			await call();
 		} catch (e) {
 			alert(e.message ? e.message : e);
+		} finally {
+			if (finish) finish();
 		}
 	};
+
+	const handleDelete = () => handelTry(async () => {
+		await deleteContainer(id);
+		state.containerDeleted(id);
+	}, state.deleteClose);
+
+	const handleRename = (dialog) => handelTry(async () => {
+		const updatedContainer = await renameContainer(id, dialog.input);
+		state.containerChange(updatedContainer);
+	}, state.renameClose);
 
 	return (
 	<span>
@@ -35,7 +46,7 @@ const Actions = (state) => {
 		>
 			<Divider />
 			<MenuItem primaryText="Rename" onClick={() => state.renameOpen(handleRename)}/>
-			<MenuItem primaryText="Delete"/>
+			<MenuItem primaryText="Delete" onClick={() => state.confirmDeleteOpen(handleDelete)}/>
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>
@@ -53,7 +64,13 @@ export default connect(
 			label      : 'Enter new name',
 			callSubmit : call
 		}}),
-		renameClose     : ()    => dispatch({type: `${INPUT_DIALOG_PREFIX}_CLOSE`}),
-		containerChange : data  => dispatch({type: 'CONTAINER_CHANGE', data})
+		confirmDeleteOpen  : (call) => dispatch({type: `${CONFIRM_DIALOG_PREFIX}_OPEN`, data : {
+			question    : 'You is sure?',
+			callConfirm : call
+		}}),
+		renameClose      : ()    => dispatch({type: `${INPUT_DIALOG_PREFIX}_CLOSE`}),
+		deleteClose      : ()    => dispatch({type: `${CONFIRM_DIALOG_PREFIX}_CLOSE`}),
+		containerChange  : data  => dispatch({type: 'CONTAINER_CHANGE', data}),
+		containerDeleted : id    => dispatch({type: 'CONTAINER_DELETE', data : id})
 	})
 )(Actions);

@@ -8,8 +8,6 @@ const INPUT_DIALOG_PREFIX = 'INPUT_DIALOG';
 
 const DialogInput = (state) => {
 
-	console.log('state.dialog', state.dialog);
-
 	const actions = [
 		<FlatButton
 			label="Cancel"
