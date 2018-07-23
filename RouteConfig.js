@@ -9,13 +9,13 @@ const route = (route, handler, method) => ({route, handler, method});
 const config = [
 	route('/container-rename', async (res, action, data) => {
 		try {
-			// await Cmd.get(commands.toggleRun(data));
-			//
-			// let container = await ConsoleParser.getOneContainer(data.id);
+			await Cmd.get(commands.stop(data));
+			await Cmd.get(commands.containerRename(data));
 
-			// Send.ok(res, action, {container})
-			// TODO: clear
-			console.log('data is ', data);
+			let container = await ConsoleParser.getOneContainer(data.id);
+
+			Send.ok(res, action, {container});
+
 		} catch (e) {
 			console.error(e);
 			Send.err(res, action, e.message ? e.message : e);

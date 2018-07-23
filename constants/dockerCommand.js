@@ -8,6 +8,7 @@ let commands = {
 	toggleRun : ({id, isRun}) => `docker ${isRun ? 'stop' : 'start'} ${id}`,
 	getOneContainer : id => `docker ps -af id="${id}"`,
 	stop : ({id}) => `docker stop ${id}`,
+	containerRename : ({id , newname}) => `docker container rename ${id} ${newname}`,
 };
 
 

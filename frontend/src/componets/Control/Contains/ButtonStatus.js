@@ -21,7 +21,7 @@ const ButtomStatus = (state) => {
 	let cls       = '';
 	let bg        = '';
 
-	const isRun = !!state.row.PORTS;
+	const isRun = !state.row.STATUS.toLowerCase().includes('exit');
 	const id    = state.row['CONTAINER ID'];
 
 	if (isRun) {

@@ -11,6 +11,16 @@ import {
 import ButtonStatus from './ButtonStatus';
 import ButtonRename from './ButtonRename';
 
+const PROPS_ORDER = [
+	'NAMES',
+	'CONTAINER ID',
+	'PORTS',
+	'STATUS',
+	'IMAGE',
+	'COMMAND',
+	'CREATED',
+];
+
 const Contains = (state) => {
 
 	const data = state.store.data;
@@ -19,19 +29,15 @@ const Contains = (state) => {
 
 	if (data.length) {
 		rows = data.map(n => {
+			const id = n['CONTAINER ID'];
+
 			return (
-				<TableRow key={`cont_${n['CONTAINER ID']}`}>
+				<TableRow key={`cont_${id}`}>
 					<TableRowColumn>
 						<ButtonStatus row={n}/>
 						<ButtonRename row={n}/>
 					</TableRowColumn>
-					<TableRowColumn>{n['CONTAINER ID']}</TableRowColumn>
-					<TableRowColumn >{n.STATUS}</TableRowColumn>
-					<TableRowColumn >{n.PORTS}</TableRowColumn>
-					<TableRowColumn >{n.NAMES}</TableRowColumn>
-					<TableRowColumn >{n.IMAGE}</TableRowColumn>
-					<TableRowColumn >{n.COMMAND}</TableRowColumn>
-					<TableRowColumn >{n.CREATED}</TableRowColumn>
+					{PROPS_ORDER.map((prop,inx) => (<TableRowColumn key={`cont_cell_${inx}_${id}`}>{n[prop]}</TableRowColumn>))}
 				</TableRow>
 			);
 		});
@@ -51,13 +57,7 @@ const Contains = (state) => {
 				>
 					<TableRow>
 						<TableHeaderColumn>ACTION</TableHeaderColumn>
-						<TableHeaderColumn>CONTAINER ID</TableHeaderColumn>
-						<TableHeaderColumn >STATUS</TableHeaderColumn>
-						<TableHeaderColumn >PORTS</TableHeaderColumn>
-						<TableHeaderColumn >NAMES</TableHeaderColumn>
-						<TableHeaderColumn >IMAGE</TableHeaderColumn>
-						<TableHeaderColumn >COMMAND</TableHeaderColumn>
-						<TableHeaderColumn >CREATED</TableHeaderColumn>
+						{PROPS_ORDER.map((prop, inx) => (<TableHeaderColumn key={`cont_head_${inx}`}>{prop}</TableHeaderColumn>))}
 					</TableRow>
 				</TableHeader>
 				<TableBody

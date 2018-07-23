@@ -10,6 +10,14 @@ import {
 
 } from 'material-ui/Table';
 
+const PROP_ORDER = [
+	'IMAGE ID',
+	'TAG',
+	'SIZE',
+	'REPOSITORY',
+	'CREATED',
+];
+
 const Images = (state) => {
 	const data = state.store.data;
 	const idProp = 'IMAGE ID';
@@ -18,21 +26,19 @@ const Images = (state) => {
 
 	if (data.length) {
 		rows = data.map(n => {
+			const id = n[idProp];
+
 			return (
-				<TableRow key={`img_${n[idProp]}`}>
-					<TableRowColumn>Buttons</TableRowColumn>
-					<TableRowColumn>{n[idProp]}</TableRowColumn>
-					<TableRowColumn >{n.TAG}</TableRowColumn>
-					<TableRowColumn >{n.REPOSITORY}</TableRowColumn>
-					<TableRowColumn >{n.SIZE}</TableRowColumn>
-					<TableRowColumn >{n.CREATED}</TableRowColumn>
+				<TableRow key={`img_${id}`}>
+					<TableRowColumn>ACTION FOR {`img_${id}`}</TableRowColumn>
+					{PROP_ORDER.map((prop, inx) => (<TableRowColumn key={`img_cell_${id}_${inx}`}>{n[prop]}</TableRowColumn>))}
 				</TableRow>
 			);
 		});
 	} else {
 		rows = (
-			<TableRow key={'cont_empty'} >
-				<TableRowColumn>You not has containers</TableRowColumn>
+			<TableRow key={'img_cont_empty'} >
+				<TableRowColumn>You not has images</TableRowColumn>
 			</TableRow>
 		);
 	}
@@ -42,12 +48,8 @@ const Images = (state) => {
 			<Table>
 				<TableHeader displaySelectAll={false}>
 					<TableRow>
-						<TableHeaderColumn>ACTION</TableHeaderColumn>
-						<TableHeaderColumn>{idProp}</TableHeaderColumn>
-						<TableHeaderColumn>TAG</TableHeaderColumn>
-						<TableHeaderColumn>REPOSITORY</TableHeaderColumn>
-						<TableHeaderColumn>SIZE</TableHeaderColumn>
-						<TableHeaderColumn>CREATED</TableHeaderColumn>
+						<TableHeaderColumn>ACTIONS</TableHeaderColumn>
+						{PROP_ORDER.map((prop, inx) => (<TableHeaderColumn key={`cont_head_${inx}`}>{prop}</TableHeaderColumn>))}
 					</TableRow>
 				</TableHeader>
 				<TableBody displayRowCheckbox={false}>
