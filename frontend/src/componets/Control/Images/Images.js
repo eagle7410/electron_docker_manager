@@ -38,7 +38,7 @@ const Images = (state) => {
 	} else {
 		rows = (
 			<TableRow key={'img_cont_empty'} >
-				<TableRowColumn>You not has images</TableRowColumn>
+				<TableRowColumn colSpan={PROP_ORDER.length + 1}>You not has images</TableRowColumn>
 			</TableRow>
 		);
 	}

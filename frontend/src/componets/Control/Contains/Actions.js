@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from "react-redux";
 
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -10,7 +11,6 @@ import {
 	renameContainer,
 	deleteContainer
 } from '../../../api/api';
-import {connect} from "react-redux";
 
 const INPUT_DIALOG_PREFIX = 'INPUT_DIALOG';
 const CONFIRM_DIALOG_PREFIX = 'CONFIRM_DIALOG';
@@ -47,6 +47,8 @@ const Actions = (state) => {
 			<Divider />
 			<MenuItem primaryText="Rename" onClick={() => state.renameOpen(handleRename)}/>
 			<MenuItem primaryText="Delete" onClick={() => state.confirmDeleteOpen(handleDelete)}/>
+			<MenuItem primaryText="Get" onClick={() => {alert('No implement')}} />
+			<MenuItem primaryText="Bash" onClick={() => {alert('No implement')}} />
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>

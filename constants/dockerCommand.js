@@ -10,6 +10,7 @@ let commands = {
 	stop : ({id}) => `docker stop ${id}`,
 	containerRename : ({id , newname}) => `docker container rename ${id} ${newname}`,
 	containerDelete : ({id}) => `docker rm ${id}`,
+	containerCreate : ({name, image, portInner, portExternal, attach}) => `docker run -d --name ${name} -p ${portExternal}:${portInner} ${attach} ${image}`,
 };
 
 

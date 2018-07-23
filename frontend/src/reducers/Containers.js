@@ -14,6 +14,12 @@ const containers = (state = initialState, action) => {
 				wait : action.data
 			};
 
+		case 'CONTAINER_ADD':
+			return {
+				...state,
+				data : state.data.concat([action.data]),
+			};
+
 		case 'CONTAINER_DELETE':
 			const id = action.data;
 			data = state.data.filter(row => row['CONTAINER ID'] !== id);

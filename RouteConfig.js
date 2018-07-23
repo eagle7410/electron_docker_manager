@@ -18,6 +18,15 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/container', async (res, action, data) => {
+
+		const id = await Cmd.get(commands.containerCreate(data));
+
+		let container = await ConsoleParser.getOneContainer(id.trim());
+
+		Send.ok(res, action, container);
+	}),
+
 	route('/container-delete', async (res, action, data) => {
 		await Cmd.get(commands.stop(data));
 		await Cmd.get(commands.containerDelete(data));

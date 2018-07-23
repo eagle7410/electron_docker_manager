@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect} from "react-redux";
 import {
 	Table,
 	TableBody,
@@ -9,6 +9,7 @@ import {
 	TableHeaderColumn,
 } from 'material-ui/Table';
 import ButtonStatus from './ButtonStatus';
+import ToolsBar from './ToolsBar';
 import Actions from './Actions';
 
 const PROPS_ORDER = [
@@ -44,7 +45,7 @@ const Contains = (state) => {
 	} else {
 		rows = (
 			<TableRow key={'cont_empty'} >
-				<TableRowColumn>You not has containers</TableRowColumn>
+				<TableRowColumn colSpan={PROPS_ORDER.length + 1}>You not has containers</TableRowColumn>
 			</TableRow>
 		);
 	}
@@ -53,6 +54,11 @@ const Contains = (state) => {
 		<div>
 			<Table>
 				<TableHeader displaySelectAll={false}>
+					<TableRow>
+						<TableHeaderColumn colSpan={PROPS_ORDER.length + 1}>
+							<ToolsBar/>
+						</TableHeaderColumn>
+					</TableRow>
 					<TableRow>
 						<TableHeaderColumn>ACTION</TableHeaderColumn>
 						{PROPS_ORDER.map((prop, inx) => (<TableHeaderColumn key={`cont_head_${inx}`}>{prop}</TableHeaderColumn>))}
@@ -67,7 +73,5 @@ const Contains = (state) => {
 export default connect(
 	state => ({
 		store: state.containers
-	}),
-	dispatch => ({})
-
+	})
 )(Contains);
