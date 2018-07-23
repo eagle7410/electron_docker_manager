@@ -6,13 +6,6 @@ import IconOff from 'material-ui/svg-icons/image/flash-off';
 import IconUpdate from 'material-ui/svg-icons/action/update';
 import {toggleContainer} from '../../../api/api';
 
-const styles = {
-	img: {
-		height: 50,
-		marginRight: 15,
-	},
-};
-
 const ButtomStatus = (state) => {
 	let disabled  = false;
 	let secondary = false;
@@ -42,12 +35,15 @@ const ButtomStatus = (state) => {
 	}
 
 	const handlerClick = async () => {
+		let data = {container : {}};
+
 		try {
 			state.wait(id);
-			state.change(await toggleContainer(id, isRun));
-
+			data = await toggleContainer(id, isRun);
 		} catch (e) {
 			alert(e.message ? e.message : e);
+		} finally {
+			state.change(data);
 		}
 	};
 
@@ -60,6 +56,7 @@ const ButtomStatus = (state) => {
 			secondary={secondary}
 			disabled={disabled}
 			onClick={handlerClick}
+			style={{top:-8, position : 'relative'}}
 		/>
 	);
 };

@@ -9,7 +9,7 @@ import {
 	TableHeaderColumn,
 } from 'material-ui/Table';
 import ButtonStatus from './ButtonStatus';
-import ButtonRename from './ButtonRename';
+import Actions from './Actions';
 
 const PROPS_ORDER = [
 	'NAMES',
@@ -34,8 +34,8 @@ const Contains = (state) => {
 			return (
 				<TableRow key={`cont_${id}`}>
 					<TableRowColumn>
+						<Actions row={n}/>
 						<ButtonStatus row={n}/>
-						<ButtonRename row={n}/>
 					</TableRowColumn>
 					{PROPS_ORDER.map((prop,inx) => (<TableRowColumn key={`cont_cell_${inx}_${id}`}>{n[prop]}</TableRowColumn>))}
 				</TableRow>
@@ -52,22 +52,15 @@ const Contains = (state) => {
 	return (
 		<div>
 			<Table>
-				<TableHeader
-					displaySelectAll={false}
-				>
+				<TableHeader displaySelectAll={false}>
 					<TableRow>
 						<TableHeaderColumn>ACTION</TableHeaderColumn>
 						{PROPS_ORDER.map((prop, inx) => (<TableHeaderColumn key={`cont_head_${inx}`}>{prop}</TableHeaderColumn>))}
 					</TableRow>
 				</TableHeader>
-				<TableBody
-					displayRowCheckbox={false}
-				>
-					{rows}
-				</TableBody>
+				<TableBody displayRowCheckbox={false}>{rows}</TableBody>
 			</Table>
 		</div>
-
 	);
 };
 
