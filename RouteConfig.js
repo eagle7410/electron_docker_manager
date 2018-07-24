@@ -6,7 +6,14 @@ const commands         = require('./constants/dockerCommand');
 const FileSystemDialog = require('./libs/FileSystemDialog');
 const fs               = require('fs-extra');
 
-const PATH_CONTAINERS_PORTS_MAP = `${__dirname}/logs/container-port-map.json`;
+const PATH_LOGS = `${__dirname}/logs`;
+const PATH_CONTAINERS_PORTS_MAP = `${PATH_LOGS}/container-port-map.json`;
+
+if (!fs.pathExistsSync(PATH_LOGS)) {
+	fs.mkdirsSync(PATH_LOGS);
+	fs.writeJsonSync(PATH_CONTAINERS_PORTS_MAP, {}, {spaces : '\t'});
+}
+
 let windowMain = null;
 
 const route = (route, handler, method) => ({
