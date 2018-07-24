@@ -23,6 +23,12 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/image-save', async (res, action, data) => {
+		const out = await Cmd.get(commands.imageSave(data));
+		// TODO: clear
+		console.log('out is ', out);
+		Send.ok(res, action);
+	}),
 	route('/container-edit-label-ports', async (res, action, data) => {
 		let containersPortsMap = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
 		containersPortsMap[data.id] = data.labelPorts;

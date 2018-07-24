@@ -1,5 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+
+import ToolsBar from './ToolsBar'
+import Actions from './Actions'
 import {
 	Table,
 	TableBody,
@@ -11,12 +14,13 @@ import {
 } from 'material-ui/Table';
 
 const PROP_ORDER = [
-	'IMAGE ID',
+	'REPOSITORY',
 	'TAG',
 	'SIZE',
-	'REPOSITORY',
 	'CREATED',
 ];
+
+const COLUMN_COUNT = PROP_ORDER.length + 1;
 
 const Images = (state) => {
 	const data = state.store.data;
@@ -25,20 +29,20 @@ const Images = (state) => {
 	let rows;
 
 	if (data.length) {
-		rows = data.map(n => {
-			const id = n[idProp];
+		rows = data.map(row => {
+			const id = row[idProp];
 
 			return (
 				<TableRow key={`img_${id}`}>
-					<TableRowColumn>ACTION FOR {`img_${id}`}</TableRowColumn>
-					{PROP_ORDER.map((prop, inx) => (<TableRowColumn key={`img_cell_${id}_${inx}`}>{n[prop]}</TableRowColumn>))}
+					<TableRowColumn><Actions row={row}/> {id}</TableRowColumn>
+					{PROP_ORDER.map((prop, inx) => (<TableRowColumn key={`img_cell_${id}_${inx}`}>{row[prop]}</TableRowColumn>))}
 				</TableRow>
 			);
 		});
 	} else {
 		rows = (
 			<TableRow key={'img_cont_empty'} >
-				<TableRowColumn colSpan={PROP_ORDER.length + 1}>You not has images</TableRowColumn>
+				<TableRowColumn colSpan={COLUMN_COUNT}>You not has images</TableRowColumn>
 			</TableRow>
 		);
 	}
@@ -48,7 +52,12 @@ const Images = (state) => {
 			<Table>
 				<TableHeader displaySelectAll={false}>
 					<TableRow>
-						<TableHeaderColumn>ACTIONS</TableHeaderColumn>
+						<TableHeaderColumn colSpan={COLUMN_COUNT}>
+							<ToolsBar/>
+						</TableHeaderColumn>
+					</TableRow>
+					<TableRow>
+						<TableHeaderColumn>{idProp}</TableHeaderColumn>
 						{PROP_ORDER.map((prop, inx) => (<TableHeaderColumn key={`cont_head_${inx}`}>{prop}</TableHeaderColumn>))}
 					</TableRow>
 				</TableHeader>

@@ -9,6 +9,7 @@ const saveFilePath            = () => reqFull(save, '/path-save');
 const openFilePath            = () => reqFull(save, '/path-open');
 const containerToImage        = (data) => reqFull(save, '/container-commit', data);
 const containerEditLabelPorts = (data) => reqFull(save, '/container-edit-label-ports', data);
+const imageSave               = (data) => reqFull(save, '/image-save', data);
 
 export {
 	init,
@@ -19,5 +20,6 @@ export {
 	deleteContainer,
 	createContainer,
 	saveFilePath,
-	openFilePath
+	openFilePath,
+	imageSave
 };

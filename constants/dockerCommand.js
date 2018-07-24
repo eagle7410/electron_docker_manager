@@ -23,6 +23,7 @@ let commands = {
 
 		return `docker commit ${_author} ${_message} ${attach} ${id}  ${repository}:${tag}`;
 	},
+	imageSave            : ({id, path}) => `docker save -o "${path}" ${id}`
 };
 
 

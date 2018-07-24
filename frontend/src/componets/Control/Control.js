@@ -9,11 +9,12 @@ import DialogInput from '../tools/DialogInput'
 import DialogConfirm from '../tools/DialogConfirm'
 
 const Control = () => {
+	// TODO: Back back tab index
 
 	return (
 		<div>
 			<Paper zDepth={2}>
-				<Tabs>
+				<Tabs initialSelectedIndex={1}>
 					<Tab icon={<IconContainers/>} label="Containers" style={{height: '100px'}}>
 						<Contains/>
 					</Tab>

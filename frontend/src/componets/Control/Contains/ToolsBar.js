@@ -7,7 +7,7 @@ import DialogCreateContainer from './DialogCreateContainer';
 
 const PREFIX = 'CREATE_CONTAINER_DIALOG';
 
-const Actions = (state) => {
+const Toolsbar = (state) => {
 	return (
 		<span>
 			<RaisedButton
@@ -28,4 +28,4 @@ export default connect(
 	dispatch => ({
 		createOpen  : () => dispatch({type: `${PREFIX}_OPEN`}),
 	})
-)(Actions);
+)(Toolsbar);
