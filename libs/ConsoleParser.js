@@ -59,6 +59,18 @@ class ConsoleParser {
 		};
 	}
 
+	static async getOneImageByRepositoryTag({repository, tag}) {
+		const handlerLine = (row, header) => {
+			let obj = {};
+
+			row.map((val, num) => obj[header[num]] = val);
+
+			return obj;
+		};
+
+		return this.dockerOut(await Cmd.get(commands.imageByRepositoryTag({repository, tag})), handlerLine).pop();
+	}
+
 	static async getOneContainer(id) {
 		const handlerLine = (row, header) => {
 			let obj = {};
@@ -74,7 +86,6 @@ class ConsoleParser {
 		};
 
 		return await this.dockerOut(await Cmd.get(commands.getOneContainer(id)), handlerLine).pop();
-
 	}
 }
 

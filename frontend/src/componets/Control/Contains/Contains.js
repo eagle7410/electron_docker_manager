@@ -11,6 +11,7 @@ import {
 import ButtonStatus from './ButtonStatus';
 import ToolsBar from './ToolsBar';
 import Actions from './Actions';
+import DialogContainerToImage from './DialogContainerToImage';
 
 const PROPS_ORDER = [
 	'NAMES',
@@ -66,6 +67,7 @@ const Contains = (state) => {
 				</TableHeader>
 				<TableBody displayRowCheckbox={false}>{rows}</TableBody>
 			</Table>
+			<DialogContainerToImage/>
 		</div>
 	);
 };

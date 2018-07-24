@@ -20,18 +20,11 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
-	route('/container-import', async (res, action, data) => {
-		const out = await Cmd.get(commands.containerImport(data));
-		// TODO: clear
-		console.log('out ', out);
+	route('/container-commit', async (res, action, data) => {
+		await Cmd.get(commands.containerToImage(data));
+		const image = await ConsoleParser.getOneImageByRepositoryTag(data);
 
-		Send.ok(res, action);
-	}),
-	route('/container-export', async (res, action, data) => {
-		// TODO: clear
-		console.log('cmd ', commands.containerExport(data));
-		await Cmd.get(commands.containerExport(data));
-		Send.ok(res, action);
+		Send.ok(res, action, {image});
 	}),
 	route('/path-open', async (res, action) => {
 		const path = await FileSystemDialog.openFileFrom(windowMain);

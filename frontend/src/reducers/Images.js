@@ -10,6 +10,11 @@ const images = (state = initialState, action) => {
 				...state,
 				data : action.data
 			};
+		case 'IMAGES_ADD':
+			return {
+				...state,
+				data : state.data.concat([action.data])
+			};
 	}
 
 	return state;

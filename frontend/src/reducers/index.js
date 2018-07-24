@@ -6,10 +6,12 @@ import {images} from './Images'
 import {dialogInput} from './DialogInput'
 import {dialogConfirm} from './DialogConfirm'
 import {dialogCreateContainer} from './DialogCreateContainer'
+import {dialogContainerToImage} from './DialogContainerToImage'
 
 
 const reducer = combineReducers({
 	routing: routerReducer,
+	dialogContainerToImage,
 	dialogInput,
 	dialogConfirm,
 	dialogCreateContainer,

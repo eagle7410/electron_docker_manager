@@ -10,12 +10,11 @@ import Divider from 'material-ui/Divider';
 import {
 	renameContainer,
 	deleteContainer,
-	exportContainer,
-	saveFilePath
 } from '../../../api/api';
 
-const INPUT_DIALOG_PREFIX = 'INPUT_DIALOG';
-const CONFIRM_DIALOG_PREFIX = 'CONFIRM_DIALOG';
+const PREFIX_CONTAINER_2_IMAGE = 'CREATE_IMAGE_FROM_CONTAINER_DIALOG';
+const INPUT_DIALOG_PREFIX      = 'INPUT_DIALOG';
+const CONFIRM_DIALOG_PREFIX    = 'CONFIRM_DIALOG';
 
 const Actions = (state) => {
 	const id = state.row['CONTAINER ID'];
@@ -39,17 +38,15 @@ const Actions = (state) => {
 		state.containerChange(updatedContainer);
 	}, state.renameClose);
 
-	const handleGet = () => handelTry(async () => {
-		const {path} = await saveFilePath();
-		// TODO: clear
-		console.log('path is ', {path, id});
-		if (!path) return false;
-		// TODO: clear
-		console.log('get ', {path, id});
-		await exportContainer({path, id});
+	const handleContainer2Image = () => {
+		let repository = state.row.IMAGE;
 
-		alert('Get container is success :) ...');
-	});
+		let image = state.images.data.find(image => image['IMAGE ID'] === repository);
+
+		if (image) repository = image.REPOSITORY;
+
+		state.container2ImageOpen({repository, id})
+	}
 
 	return (
 	<span>
@@ -59,10 +56,10 @@ const Actions = (state) => {
 			targetOrigin={{horizontal: 'right', vertical: 'top'}}
 		>
 			<Divider />
-			<MenuItem primaryText="Rename" onClick={() => state.renameOpen(handleRename)}/>
-			<MenuItem primaryText="Delete" onClick={() => state.confirmDeleteOpen(handleDelete)}/>
-			<MenuItem primaryText="Get"    onClick={() => handleGet()} />
-			<MenuItem primaryText="Bash"   onClick={() => {alert('No implement')}} />
+			<MenuItem primaryText="Rename"    onClick={() => state.renameOpen(handleRename)}/>
+			<MenuItem primaryText="Delete"    onClick={() => state.confirmDeleteOpen(handleDelete)}/>
+			<MenuItem primaryText="To image"  onClick={() => handleContainer2Image()} />
+			<MenuItem primaryText="Bash"      onClick={() => {alert('No implement')}} />
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>
@@ -73,10 +70,12 @@ const Actions = (state) => {
 
 export default connect(
 	state => ({
-		dialog: state.dialogInput,
+		dialog : state.dialogInput,
+		images : state.images
 	}),
 	dispatch => ({
-		renameOpen   : (call) => dispatch({type: `${INPUT_DIALOG_PREFIX}_OPEN`, data : {
+		container2ImageOpen : (data) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
+		renameOpen          : (call) => dispatch({type: `${INPUT_DIALOG_PREFIX}_OPEN`, data : {
 			label      : 'Enter new name',
 			callSubmit : call
 		}}),
