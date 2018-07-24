@@ -8,6 +8,15 @@ const containers = (state = initialState, action) => {
 
 	// eslint-disable-next-line
 	switch (action.type) {
+		case 'CONTAINER_CHANGE_LABEL_PORTS':
+			return {
+				...state,
+				data : state.data.map(row => {
+					if (row['CONTAINER ID'] === action.data.id) row.LABEL_PORTS = action.data.labelPorts;
+					return row;
+				})
+			};
+
 		case 'CONTAINER_WAIT_CHANGE_STATUS':
 			return {
 				...state,
@@ -32,7 +41,7 @@ const containers = (state = initialState, action) => {
 
 		case 'CONTAINER_CHANGE':
 			const container = action.data.container;
-			data = state.data.map(row => row['CONTAINER ID'] === container['CONTAINER ID'] ? container : row);
+			data = state.data.map(row => row['CONTAINER ID'] === container['CONTAINER ID'] ? Object.assign(row, container) : row);
 
 			return {
 				...state,

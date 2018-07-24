@@ -4,6 +4,9 @@ const ConsoleParser    = require('./libs/ConsoleParser');
 const timeout          = require('./libs/timeout');
 const commands         = require('./constants/dockerCommand');
 const FileSystemDialog = require('./libs/FileSystemDialog');
+const fs               = require('fs-extra');
+
+const PATH_CONTAINERS_PORTS_MAP = `${__dirname}/logs/container-port-map.json`;
 let windowMain = null;
 
 const route = (route, handler, method) => ({
@@ -20,6 +23,14 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/container-edit-label-ports', async (res, action, data) => {
+		let containersPortsMap = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
+		containersPortsMap[data.id] = data.labelPorts;
+
+		await fs.writeJson(PATH_CONTAINERS_PORTS_MAP, containersPortsMap, {spaces : '\t'});
+
+		Send.ok(res, action);
+	}),
 	route('/container-commit', async (res, action, data) => {
 		await Cmd.get(commands.containerToImage(data));
 		const image = await ConsoleParser.getOneImageByRepositoryTag(data);
@@ -98,6 +109,14 @@ const config = [
 		response.isDockerLoad = isDockerLoad;
 
 		response.dockerInfo = await ConsoleParser.getDockerInfo();
+
+		const containersPortsMap = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
+
+		response.dockerInfo.containers = response.dockerInfo.containers.map(container => {
+			container.LABEL_PORTS = containersPortsMap[container['CONTAINER ID']] || '';
+
+			return container;
+		});
 
 		Send.ok(res, action, response);
 	})

@@ -10,6 +10,7 @@ import Divider from 'material-ui/Divider';
 import {
 	renameContainer,
 	deleteContainer,
+	containerEditLabelPorts,
 } from '../../../api/api';
 
 const PREFIX_CONTAINER_2_IMAGE = 'CREATE_IMAGE_FROM_CONTAINER_DIALOG';
@@ -36,7 +37,7 @@ const Actions = (state) => {
 	const handleRename = (dialog) => handelTry(async () => {
 		const updatedContainer = await renameContainer(id, dialog.input);
 		state.containerChange(updatedContainer);
-	}, state.renameClose);
+	}, state.inputDialogClose);
 
 	const handleContainer2Image = () => {
 		let repository = state.row.IMAGE;
@@ -46,7 +47,18 @@ const Actions = (state) => {
 		if (image) repository = image.REPOSITORY;
 
 		state.container2ImageOpen({repository, id})
-	}
+	};
+
+	const handleEditLabelPorts = () => {
+		state.editLabelPorts(state.row.LABEL_PORTS, (dialog) => handelTry(async () => {
+			let data = {id, labelPorts : dialog.input || ''};
+
+			await containerEditLabelPorts(data);
+
+			state.containerChangeLabelPorts(data);
+
+		}, state.inputDialogClose));
+	};
 
 	return (
 	<span>
@@ -56,6 +68,7 @@ const Actions = (state) => {
 			targetOrigin={{horizontal: 'right', vertical: 'top'}}
 		>
 			<Divider />
+			<MenuItem primaryText="Edit label ports"  onClick={() => handleEditLabelPorts()} />
 			<MenuItem primaryText="Rename"    onClick={() => state.renameOpen(handleRename)}/>
 			<MenuItem primaryText="Delete"    onClick={() => state.confirmDeleteOpen(handleDelete)}/>
 			<MenuItem primaryText="To image"  onClick={() => handleContainer2Image()} />
@@ -75,6 +88,11 @@ export default connect(
 	}),
 	dispatch => ({
 		container2ImageOpen : (data) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
+		editLabelPorts      : (input, call) => dispatch({type: `${INPUT_DIALOG_PREFIX}_OPEN`, data : {
+			label      : 'Edit label ports',
+			callSubmit : call,
+			input
+		}}),
 		renameOpen          : (call) => dispatch({type: `${INPUT_DIALOG_PREFIX}_OPEN`, data : {
 			label      : 'Enter new name',
 			callSubmit : call
@@ -83,9 +101,10 @@ export default connect(
 			question    : 'You is sure?',
 			callConfirm : call
 		}}),
-		renameClose      : ()    => dispatch({type: `${INPUT_DIALOG_PREFIX}_CLOSE`}),
-		deleteClose      : ()    => dispatch({type: `${CONFIRM_DIALOG_PREFIX}_CLOSE`}),
-		containerChange  : data  => dispatch({type: 'CONTAINER_CHANGE', data}),
-		containerDeleted : id    => dispatch({type: 'CONTAINER_DELETE', data : id})
+		inputDialogClose          : ()    => dispatch({type: `${INPUT_DIALOG_PREFIX}_CLOSE`}),
+		deleteClose               : ()    => dispatch({type: `${CONFIRM_DIALOG_PREFIX}_CLOSE`}),
+		containerChangeLabelPorts : data  => dispatch({type: 'CONTAINER_CHANGE_LABEL_PORTS', data}),
+		containerChange           : data  => dispatch({type: 'CONTAINER_CHANGE', data}),
+		containerDeleted          : id    => dispatch({type: 'CONTAINER_DELETE', data : id})
 	})
 )(Actions);

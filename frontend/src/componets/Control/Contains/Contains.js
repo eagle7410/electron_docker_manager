@@ -16,6 +16,7 @@ import DialogContainerToImage from './DialogContainerToImage';
 const PROPS_ORDER = [
 	'NAMES',
 	'CONTAINER ID',
+	'LABEL_PORTS',
 	'PORTS',
 	'STATUS',
 	'IMAGE',

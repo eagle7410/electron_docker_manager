@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 const INPUT_DIALOG_PREFIX = 'INPUT_DIALOG';
 
 const DialogInput = (state) => {
-
+	const isDisabledSubmit = !(state.dialog && state.dialog.input && state.dialog.input.length);
 	const actions = [
 		<FlatButton
 			label="Cancel"
@@ -17,7 +17,7 @@ const DialogInput = (state) => {
 		<FlatButton
 			label="Submit"
 			primary={true}
-			disabled={!state.dialog.input.length}
+			disabled={isDisabledSubmit}
 			onClick={() => state.dialog.callSubmit(state.dialog)}
 		/>,
 	];
