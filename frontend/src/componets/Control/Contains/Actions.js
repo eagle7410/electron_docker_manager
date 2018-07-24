@@ -68,11 +68,11 @@ const Actions = (state) => {
 			targetOrigin={{horizontal: 'right', vertical: 'top'}}
 		>
 			<Divider />
-			<MenuItem primaryText="Edit label ports"  onClick={() => handleEditLabelPorts()} />
-			<MenuItem primaryText="Rename"    onClick={() => state.renameOpen(handleRename)}/>
-			<MenuItem primaryText="Delete"    onClick={() => state.confirmDeleteOpen(handleDelete)}/>
-			<MenuItem primaryText="To image"  onClick={() => handleContainer2Image()} />
-			<MenuItem primaryText="Bash"      onClick={() => {alert('No implement')}} />
+			<MenuItem primaryText="Edit label ports" onClick={() => handleEditLabelPorts()} />
+			<MenuItem primaryText="Rename"           onClick={() => state.renameOpen(handleRename)}/>
+			<MenuItem primaryText="Delete"           onClick={() => state.confirmDeleteOpen(handleDelete)}/>
+			<MenuItem primaryText="Commit to image"  onClick={() => handleContainer2Image()} />
+			<MenuItem primaryText="Bash"             onClick={() => {alert('No implement')}} />
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>
