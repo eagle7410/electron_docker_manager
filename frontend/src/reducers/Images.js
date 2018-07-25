@@ -7,6 +7,11 @@ const initialState = {
 const images = (state = initialState, action) => {
 	// eslint-disable-next-line
 	switch (action.type) {
+		case `${PREFIX_IMAGES}_DELETE`:
+			return {
+				...state,
+				data : state.data.filter(image => image['IMAGE ID'] !== action.data)
+			};
 		case `${PREFIX_IMAGES}_WAIT_STOP`:
 			return {
 				...state,

@@ -8,7 +8,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
 import {
 	PREFIX_IMAGES,
-	PREFIX_CONFIRM_DIALOG
+	PREFIX_CONFIRM_DIALOG, PREFIX_INPUT_DIALOG
 } from '../../../const/prefix';
 import {
 	saveFilePath,
@@ -19,7 +19,7 @@ import {
 
 const Actions = (state) => {
 	const id = state.row['IMAGE ID'];
-	const handelTry = async (call, finish) => {
+	const handelTry = async (call, finish, cancel) => {
 
 		state.wait(id);
 
@@ -27,6 +27,7 @@ const Actions = (state) => {
 			await call();
 		} catch (e) {
 			alert(e.message ? e.message : e);
+			if (cancel) cancel();
 		} finally {
 			state.waitStop(id);
 			if (finish) finish();
@@ -44,8 +45,11 @@ const Actions = (state) => {
 	});
 
 	const handelDelete = () => handelTry(async () => {
+		state.confirmDeleteClose();
 		await imageDelete({id});
-	});
+		state.imageDelete(id);
+	}, null, state.confirmDeleteClose);
+
 	let content = (<IconMenu
 		iconButtonElement={<IconButton className={state.images.wait === id ? 'wait-update-status' : ''}><MoreVertIcon /></IconButton>}
 		anchorOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -68,8 +72,10 @@ export default connect(
 		images : state.images
 	}),
 	dispatch => ({
-		wait     : (data) => dispatch({type: `${PREFIX_IMAGES}_WAIT`, data}),
-		waitStop : ()     => dispatch({type: `${PREFIX_IMAGES}_WAIT_STOP`}),
+		wait     : (data)           => dispatch({type: `${PREFIX_IMAGES}_WAIT`, data}),
+		waitStop : ()               => dispatch({type: `${PREFIX_IMAGES}_WAIT_STOP`}),
+		imageDelete : (data)        => dispatch({type: `${PREFIX_IMAGES}_DELETE`, data}),
+		confirmDeleteClose : ()     => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_CLOSE`}),
 		confirmDeleteOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
 			question    : 'You is sure?',
 			callConfirm : call

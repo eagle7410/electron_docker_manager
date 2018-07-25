@@ -4,24 +4,10 @@ const ConsoleParser    = require('./libs/ConsoleParser');
 const timeout          = require('./libs/timeout');
 const commands         = require('./constants/dockerCommand');
 const FileSystemDialog = require('./libs/FileSystemDialog');
-const fs               = require('fs-extra');
-
-const PATH_LOGS = `${__dirname}/logs`;
-const PATH_CONTAINERS_PORTS_MAP = `${PATH_LOGS}/container-port-map.json`;
-
-if (!fs.pathExistsSync(PATH_LOGS)) {
-	fs.mkdirsSync(PATH_LOGS);
-	fs.writeJsonSync(PATH_CONTAINERS_PORTS_MAP, {}, {spaces : '\t'});
-}
-
+const LogManager       = require('./libs/LogManager');
 let windowMain = null;
 
-const addToContainersPortsMap = async (id, data) => {
-	let containersPortsMap = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
-	containersPortsMap[id] = data;
-
-	await fs.writeJson(PATH_CONTAINERS_PORTS_MAP, containersPortsMap, {spaces : '\t'});
-}
+LogManager.init();
 
 const route = (route, handler, method) => ({
 	route,
@@ -46,7 +32,7 @@ const config = [
 		Send.ok(res, action);
 	}),
 	route('/container-edit-label-ports', async (res, action, data) => {
-		await addToContainersPortsMap(data.id, data.labelPorts);
+		await LogManager.containersEditLabelPorts(data.id, data.labelPorts);
 		Send.ok(res, action);
 	}),
 	route('/container-commit', async (res, action, data) => {
@@ -70,7 +56,8 @@ const config = [
 
 		let id = await Cmd.get(commands.containerCreate(data));
 		id = id.trim();
-		await addToContainersPortsMap(id, data.portExternal);
+
+		await LogManager.containersEditLabelPorts(id, data.portExternal);
 
 		let container = await ConsoleParser.getOneContainer(id);
 		container.LABEL_PORTS = data.portExternal;
@@ -81,6 +68,7 @@ const config = [
 	route('/container-delete', async (res, action, data) => {
 		await Cmd.get(commands.stop(data));
 		await Cmd.get(commands.containerDelete(data));
+		await LogManager.containersDeleteLabelPorts(data.id);
 
 		Send.ok(res, action);
 	}),
@@ -131,8 +119,9 @@ const config = [
 
 		response.dockerInfo = await ConsoleParser.getDockerInfo();
 
-		const containersPortsMap = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
-
+		const containersPortsMap = await LogManager.containersLabelPorts();
+		// TODO: clear
+		console.log('containersPortsMap ', containersPortsMap);
 		response.dockerInfo.containers = response.dockerInfo.containers.map(container => {
 			container.LABEL_PORTS = containersPortsMap[container['CONTAINER ID']] || '';
 
