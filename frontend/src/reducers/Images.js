@@ -7,6 +7,14 @@ const initialState = {
 const images = (state = initialState, action) => {
 	// eslint-disable-next-line
 	switch (action.type) {
+		case `${PREFIX_IMAGES}_CHANGE_LABEL_PORTS`:
+			return {
+				...state,
+				data : state.data.map(row => {
+					if (row['IMAGE ID'] === action.data.id) row.LABEL_PORTS = action.data.labelPorts;
+					return row;
+				})
+			};
 		case `${PREFIX_IMAGES}_DELETE`:
 			return {
 				...state,

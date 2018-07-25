@@ -105,6 +105,7 @@ export default connect(
 		inputDialogClose          : ()    => dispatch({type: `${PREFIX_INPUT_DIALOG}_CLOSE`}),
 		deleteClose               : ()    => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_CLOSE`}),
 		containerChange           : data  => dispatch({type: `${PREFIX_CONTAINER}_CHANGE`, data}),
-		containerDeleted          : id    => dispatch({type: `${PREFIX_CONTAINER}_DELETE`, data : id})
+		containerDeleted          : id    => dispatch({type: `${PREFIX_CONTAINER}_DELETE`, data : id}),
+		containerChangeLabelPorts : data  => dispatch({type: `${PREFIX_CONTAINER}_CHANGE_LABEL_PORTS`, data}),
 	})
 )(Actions);

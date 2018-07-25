@@ -16,6 +16,7 @@ import {
 const PROP_ORDER = [
 	'REPOSITORY',
 	'TAG',
+	'LABEL_PORTS',
 	'SIZE',
 	'CREATED',
 ];

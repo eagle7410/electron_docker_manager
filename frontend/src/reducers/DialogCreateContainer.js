@@ -5,6 +5,7 @@ const initialState = {
 	portInner     : '',
 	portExternal  : '',
 	attach        : '',
+	attachToEnd   : '',
 	image         : '',
 	volumesFrom   : '',
 	errors        : {},
@@ -27,10 +28,17 @@ const dialogCreateContainer = (state = initialState, action) => {
 			};
 
 		case `${PREFIX_CREATE_CONTAINER_DIALOG}_INPUT`:
-			return {
+			let newState = {
 				...state,
 				[action.data.field] : action.data.value
 			};
+
+			if (action.data.field === 'image') {
+				newState[action.data.field] = action.data.value.value;
+				if (action.data.value.port) newState.portInner = action.data.value.port;
+			}
+
+			return newState;
 
 		case `${PREFIX_CREATE_CONTAINER_DIALOG}_CLOSE`:
 			return {

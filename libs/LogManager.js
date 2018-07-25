@@ -14,6 +14,10 @@ class LogManager {
 		}
 	}
 
+	static imagesLabelPorts () {
+		return fs.readJson(PATH_IMAGES_PORTS_MAP);
+	}
+
 	static containersLabelPorts () {
 		return fs.readJson(PATH_CONTAINERS_PORTS_MAP);
 	}
@@ -21,6 +25,11 @@ class LogManager {
 	static containersLabelPortsUpdate(labelPorts) {
 		return fs.writeJson(PATH_CONTAINERS_PORTS_MAP, labelPorts, {spaces : '\t'});
 	}
+
+	static imagesLabelPortsUpdate(labelPorts) {
+		return fs.writeJson(PATH_IMAGES_PORTS_MAP, labelPorts, {spaces : '\t'});
+	}
+
 	static getId(id) {
 		return id.slice(0, 12);
 	}
@@ -30,6 +39,7 @@ class LogManager {
 
 		return await this.containersLabelPortsUpdate(containersPortsMap)
 	}
+
 	static async containersEditLabelPorts (id, labelPorts) {
 		let containersPortsMap = await this.containersLabelPorts();
 		containersPortsMap[this.getId(id)] = labelPorts;
@@ -37,6 +47,12 @@ class LogManager {
 		return await this.containersLabelPortsUpdate(containersPortsMap)
 	}
 
+	static async imagesEditLabelPorts (id, labelPorts) {
+		let portsMap = await this.imagesLabelPorts();
+		portsMap[this.getId(id)] = labelPorts;
+
+		return await this.imagesLabelPortsUpdate(portsMap);
+	}
 }
 
 module.exports = LogManager;

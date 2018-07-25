@@ -8,12 +8,14 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
 import {
 	PREFIX_IMAGES,
-	PREFIX_CONFIRM_DIALOG, PREFIX_INPUT_DIALOG
+	PREFIX_CONFIRM_DIALOG,
+	PREFIX_INPUT_DIALOG,
 } from '../../../const/prefix';
 import {
 	saveFilePath,
 	imageSave,
 	imageDelete,
+	imageEditLabelPorts,
 } from '../../../api/api';
 
 
@@ -30,7 +32,12 @@ const Actions = (state) => {
 			if (cancel) cancel();
 		} finally {
 			state.waitStop(id);
-			if (finish) finish();
+
+			if (finish) {
+				// TODO: clear
+				console.log('finish ', finish);
+				finish();
+			}
 		}
 	};
 
@@ -50,6 +57,17 @@ const Actions = (state) => {
 		state.imageDelete(id);
 	}, null, state.confirmDeleteClose);
 
+	const handleEditLabelPorts = () => {
+		state.editLabelPorts(state.row.LABEL_PORTS, (dialog) => handelTry(async () => {
+			let data = {id, labelPorts : dialog.input || ''};
+
+			await imageEditLabelPorts(data);
+
+			state.imageChangeLabelPorts(data);
+
+		}, state.editLabelPortsClose));
+	};
+
 	let content = (<IconMenu
 		iconButtonElement={<IconButton className={state.images.wait === id ? 'wait-update-status' : ''}><MoreVertIcon /></IconButton>}
 		anchorOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -58,6 +76,7 @@ const Actions = (state) => {
 		<Divider />
 		<MenuItem primaryText="Delete" onClick={() => state.confirmDeleteOpen(handelDelete)}/>
 		<MenuItem primaryText="Save"   onClick={handelSave} />
+		<MenuItem primaryText="Edit label ports" onClick={() => handleEditLabelPorts()} />
 
 		<Divider />
 		<MenuItem primaryText="Cancel"/>
@@ -80,5 +99,12 @@ export default connect(
 			question    : 'You is sure?',
 			callConfirm : call
 		}}),
+		editLabelPortsClose : ()    => dispatch({type: `${PREFIX_INPUT_DIALOG}_CLOSE`}),
+		editLabelPorts      : (input, call) => dispatch({type: `${PREFIX_INPUT_DIALOG}_OPEN`, data : {
+			label      : 'Edit label ports',
+			callSubmit : call,
+			input
+		}}),
+		imageChangeLabelPorts : data  => dispatch({type: `${PREFIX_IMAGES}_CHANGE_LABEL_PORTS`, data}),
 	})
 )(Actions);

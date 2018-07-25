@@ -9,10 +9,27 @@ import {
 	PREFIX_CREATE_CONTAINER_DIALOG,
 	PREFIX_CONTAINER
 } from '../../../const/prefix';
+
 import {createContainer} from '../../../api/api';
 
+const textFieldsLabels = {
+	name: 'Name',
+	portInner: 'Inner port',
+	portExternal: 'External port',
+	attach: 'Attach',
+	attachToEnd : 'Attach to end'
+};
+
 const DialogCreateContainer = (state) => {
-	const imageList = state.images.data.map(image => `${image.REPOSITORY}:${image.TAG}`);
+
+	const imagePort = {};
+	const imageList = state.images.data.map(image => {
+		const label = `${image.REPOSITORY}:${image.TAG}`;
+
+		imagePort[label] = image.LABEL_PORTS;
+
+		return label;
+	});
 	const containerList = state.containers.data.map(container => ({
 		value : container['CONTAINER ID'],
 		label : `${container['CONTAINER ID']} | ${container.NAMES}| ${container.IMAGE})`
@@ -47,7 +64,7 @@ const DialogCreateContainer = (state) => {
 
 			let data = {};
 
-			for (let prop of required.concat(['attach', 'volumesFrom'])) data[prop] = state.store[prop] || '';
+			for (let prop of required.concat(['attach', 'volumesFrom', 'attachToEnd'])) data[prop] = state.store[prop] || '';
 
 			const container = await createContainer(data);
 
@@ -65,13 +82,6 @@ const DialogCreateContainer = (state) => {
 		<FlatButton onClick={() => handelSubmit()} label="Submit" primary={true} />,
 	];
 
-	const textFieldsLabels = {
-		name: 'Name',
-		portInner: 'Inner port',
-		portExternal: 'External port',
-		attach: 'Attach',
-	};
-
 	return (
 		<span >
 			<Dialog
@@ -82,7 +92,7 @@ const DialogCreateContainer = (state) => {
 				<SelectField
 					floatingLabelText="Image?"
 					value={state.store.image}
-					onChange={(event, index, string) => state.input('image', string)}
+					onChange={(event, index, string) => state.input('image', {value : string, port : imagePort[string]})}
 					errorText={state.store.errors.image || ''}
 				>
 					{imageList.map((image, inx) => (<MenuItem value={image} primaryText={image} key={'prop_create_container_image_' + inx} />))}

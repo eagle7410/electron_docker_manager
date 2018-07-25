@@ -23,6 +23,10 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/image-edit-label-ports', async (res, action, data) => {
+		await LogManager.imagesEditLabelPorts(data.id, data.labelPorts);
+		Send.ok(res, action);
+	}),
 	route('/image-delete', async (res, action, data) => {
 		await Cmd.get(commands.imageDelete(data));
 		Send.ok(res, action);
@@ -119,14 +123,23 @@ const config = [
 
 		response.dockerInfo = await ConsoleParser.getDockerInfo();
 
-		const containersPortsMap = await LogManager.containersLabelPorts();
-		// TODO: clear
-		console.log('containersPortsMap ', containersPortsMap);
-		response.dockerInfo.containers = response.dockerInfo.containers.map(container => {
-			container.LABEL_PORTS = containersPortsMap[container['CONTAINER ID']] || '';
+		const attach = {
+			containers : {
+				id    : 'CONTAINER ID',
+				ports : await LogManager.containersLabelPorts()
+			},
+			images : {
+				id    : 'IMAGE ID',
+				ports : await LogManager.imagesLabelPorts()
+			}
+		};
 
-			return container;
-		});
+		for (let [from, data] of Object.entries(attach))
+			response.dockerInfo[from] = response.dockerInfo[from].map(item => {
+				item.LABEL_PORTS = data.ports[item[data.id]] || '';
+
+				return item;
+			});
 
 		Send.ok(res, action, response);
 	})
