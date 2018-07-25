@@ -38,9 +38,7 @@ const route = (route, handler, method) => ({
 
 const config = [
 	route('/image-save', async (res, action, data) => {
-		const out = await Cmd.get(commands.imageSave(data));
-		// TODO: clear
-		console.log('out is ', out);
+		await Cmd.get(commands.imageSave(data));
 		Send.ok(res, action);
 	}),
 	route('/container-edit-label-ports', async (res, action, data) => {
@@ -58,11 +56,11 @@ const config = [
 		Send.ok(res, action, {path : path || null});
 	}),
 	route('/path-save', async (res, action) => {
-		let path = await FileSystemDialog.saveFileTo(windowMain);
+		let path = await FileSystemDialog.saveFileTo(windowMain) || null;
 
-		if (!path.includes('.tar')) path += '.tar';
+		if (path && !path.includes('.tar')) path += '.tar';
 
-		Send.ok(res, action, {path : path || null});
+		Send.ok(res, action, {path });
 	}),
 	route('/container', async (res, action, data) => {
 

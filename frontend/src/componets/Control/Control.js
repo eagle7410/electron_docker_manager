@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from "react-redux";
 import Paper from 'material-ui/Paper'
 import IconContainers from 'material-ui/svg-icons/image/filter-none';
 import IconImages from 'material-ui/svg-icons/image/adjust';
@@ -8,17 +9,17 @@ import Images from './Images/Images';
 import DialogInput from '../tools/DialogInput'
 import DialogConfirm from '../tools/DialogConfirm'
 
-const Control = () => {
-	// TODO: Back back tab index
+
+const Control = (state) => {
 
 	return (
 		<div>
 			<Paper zDepth={2}>
-				<Tabs initialSelectedIndex={1}>
-					<Tab icon={<IconContainers/>} label="Containers" style={{height: '100px'}}>
+				<Tabs value={state.store.selectIndex} onChange={state.changeTab}>
+					<Tab value={0} icon={<IconContainers/>} label="Containers" style={{height: '100px'}}>
 						<Contains/>
 					</Tab>
-					<Tab icon={<IconImages/>} label="Images">
+					<Tab value={1} icon={<IconImages/>} label="Images">
 						<Images/>
 					</Tab>
 				</Tabs>
@@ -29,4 +30,13 @@ const Control = () => {
 	);
 };
 
-export default Control;
+const PREFIX = 'TABS';
+
+export default connect(
+	state => ({
+		store: state.tabs
+	}),
+	dispatch => ({
+		changeTab : data => dispatch({type : `${PREFIX}_CHANGE_SELECT`, data})
+	})
+)(Control);
