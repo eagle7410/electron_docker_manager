@@ -16,6 +16,13 @@ if (!fs.pathExistsSync(PATH_LOGS)) {
 
 let windowMain = null;
 
+const addToContainersPortsMap = async (id, data) => {
+	let containersPortsMap = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
+	containersPortsMap[id] = data;
+
+	await fs.writeJson(PATH_CONTAINERS_PORTS_MAP, containersPortsMap, {spaces : '\t'});
+}
+
 const route = (route, handler, method) => ({
 	route,
 	method,
@@ -31,17 +38,11 @@ const route = (route, handler, method) => ({
 
 const config = [
 	route('/image-save', async (res, action, data) => {
-		const out = await Cmd.get(commands.imageSave(data));
-		// TODO: clear
-		console.log('out is ', out);
+		await Cmd.get(commands.imageSave(data));
 		Send.ok(res, action);
 	}),
 	route('/container-edit-label-ports', async (res, action, data) => {
-		let containersPortsMap = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
-		containersPortsMap[data.id] = data.labelPorts;
-
-		await fs.writeJson(PATH_CONTAINERS_PORTS_MAP, containersPortsMap, {spaces : '\t'});
-
+		await addToContainersPortsMap(data.id, data.labelPorts);
 		Send.ok(res, action);
 	}),
 	route('/container-commit', async (res, action, data) => {
@@ -55,17 +56,20 @@ const config = [
 		Send.ok(res, action, {path : path || null});
 	}),
 	route('/path-save', async (res, action) => {
-		let path = await FileSystemDialog.saveFileTo(windowMain);
+		let path = await FileSystemDialog.saveFileTo(windowMain) || null;
 
-		if (!path.includes('.tar')) path += '.tar';
+		if (path && !path.includes('.tar')) path += '.tar';
 
-		Send.ok(res, action, {path : path || null});
+		Send.ok(res, action, {path });
 	}),
 	route('/container', async (res, action, data) => {
 
-		const id = await Cmd.get(commands.containerCreate(data));
+		let id = await Cmd.get(commands.containerCreate(data));
+		id = id.trim();
+		await addToContainersPortsMap(id, data.portExternal);
 
-		let container = await ConsoleParser.getOneContainer(id.trim());
+		let container = await ConsoleParser.getOneContainer(id);
+		container.LABEL_PORTS = data.portExternal;
 
 		Send.ok(res, action, container);
 	}),

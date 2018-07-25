@@ -6,6 +6,7 @@ const initialState = {
 	portExternal  : '',
 	attach        : '',
 	image         : '',
+	volumesFrom   : '',
 	errors        : {},
 };
 

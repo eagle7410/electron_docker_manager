@@ -7,7 +7,7 @@ import {dialogInput} from './DialogInput'
 import {dialogConfirm} from './DialogConfirm'
 import {dialogCreateContainer} from './DialogCreateContainer'
 import {dialogContainerToImage} from './DialogContainerToImage'
-
+import {tabs} from './Tabs'
 
 const reducer = combineReducers({
 	routing: routerReducer,
@@ -17,6 +17,7 @@ const reducer = combineReducers({
 	dialogCreateContainer,
 	dataLoader,
 	containers,
+	tabs,
 	images
 });
 
