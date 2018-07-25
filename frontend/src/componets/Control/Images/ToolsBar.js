@@ -4,6 +4,7 @@ import {PREFIX_IMAGE_PULL_DIALOG} from '../../../const/prefix';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconPull from 'material-ui/svg-icons/file/cloud-download';
 import IconLoad from 'material-ui/svg-icons/action/get-app';
+import DialogPullImage from './DialogPullImage';
 
 const ToolsBar = (state) => {
 	return (
@@ -12,7 +13,7 @@ const ToolsBar = (state) => {
 				label="Pull image"
 				primary={true}
 				icon={<IconPull/>}
-				onClick={() => alert('not implement')}
+				onClick={state.dialogPullOpen}
 			/>
 			<RaisedButton
 				label="Image load"
@@ -20,15 +21,14 @@ const ToolsBar = (state) => {
 				icon={<IconLoad/>}
 				onClick={() => alert('not implement')}
 			/>
+			<DialogPullImage />
 		</span>
 	);
 };
 
 export default connect(
-	state => ({
-		dialog: state.dialogInput,
-	}),
+	state => ({}),
 	dispatch => ({
-		createOpen  : () => dispatch({type: `${PREFIX_IMAGE_PULL_DIALOG}_OPEN`}),
+		dialogPullOpen  : () => dispatch({type: `${PREFIX_IMAGE_PULL_DIALOG}_OPEN`}),
 	})
 )(ToolsBar);

@@ -21,9 +21,7 @@ const ToolsBar = (state) => {
 };
 
 export default connect(
-	state => ({
-		dialog: state.dialogInput,
-	}),
+	state => ({}),
 	dispatch => ({
 		createOpen  : () => dispatch({type: `${PREFIX_CREATE_CONTAINER_DIALOG}_OPEN`}),
 	})

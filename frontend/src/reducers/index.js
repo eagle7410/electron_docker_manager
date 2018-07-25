@@ -7,6 +7,7 @@ import {dialogInput} from './DialogInput'
 import {dialogConfirm} from './DialogConfirm'
 import {dialogCreateContainer} from './DialogCreateContainer'
 import {dialogContainerToImage} from './DialogContainerToImage'
+import {dialogPullImage} from './DialogPullImage'
 import {tabs} from './Tabs'
 
 const reducer = combineReducers({
@@ -15,6 +16,7 @@ const reducer = combineReducers({
 	dialogInput,
 	dialogConfirm,
 	dialogCreateContainer,
+	dialogPullImage,
 	dataLoader,
 	containers,
 	tabs,

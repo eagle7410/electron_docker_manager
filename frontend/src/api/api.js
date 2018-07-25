@@ -12,6 +12,7 @@ const containerEditLabelPorts = (data)        => reqFull(save, '/container-edit-
 const imageSave               = (data)        => reqFull(save, '/image-save', data);
 const imageDelete             = (data)        => reqFull(save, '/image-delete', data);
 const imageEditLabelPorts     = (data)        => reqFull(save, '/image-edit-label-ports', data);
+const imagePull               = (data)        => reqFull(save, '/image-pull', data);
 
 export {
 	init,
@@ -24,5 +25,6 @@ export {
 	saveFilePath,
 	imageSave,
 	imageDelete,
-	imageEditLabelPorts
+	imageEditLabelPorts,
+	imagePull
 };

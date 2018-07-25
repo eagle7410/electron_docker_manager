@@ -33,11 +33,7 @@ const Actions = (state) => {
 		} finally {
 			state.waitStop(id);
 
-			if (finish) {
-				// TODO: clear
-				console.log('finish ', finish);
-				finish();
-			}
+			if (finish) finish();
 		}
 	};
 

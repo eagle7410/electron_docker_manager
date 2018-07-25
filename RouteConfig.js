@@ -23,6 +23,12 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/image-pull', async (res, action, data) => {
+		await Cmd.get(commands.imagePull(data));
+		const image = await ConsoleParser.getOneImageByRepositoryTag(data);
+
+		Send.ok(res, action, {image});
+	}),
 	route('/image-edit-label-ports', async (res, action, data) => {
 		await LogManager.imagesEditLabelPorts(data.id, data.labelPorts);
 		Send.ok(res, action);
