@@ -12,6 +12,11 @@ const CREATE_CONTAINER_DIALOG_PREFIX = 'CREATE_CONTAINER_DIALOG';
 
 const DialogCreateContainer = (state) => {
 	const imageList = state.images.data.map(image => `${image.REPOSITORY}:${image.TAG}`);
+	const containerList = state.containers.data.map(container => ({
+		value : container['CONTAINER ID'],
+		label : `${container['CONTAINER ID']} | ${container.NAMES}| ${container.IMAGE})`
+	}));
+
 	const required = ['name', 'portInner', 'portExternal', 'image'];
 
 	const validate = () => {
@@ -41,7 +46,7 @@ const DialogCreateContainer = (state) => {
 
 			let data = {};
 
-			for (let prop of required.concat(['attach'])) data[prop] = state.store[prop] || '';
+			for (let prop of required.concat(['attach', 'volumesFrom'])) data[prop] = state.store[prop] || '';
 
 			const container = await createContainer(data);
 
@@ -73,6 +78,26 @@ const DialogCreateContainer = (state) => {
 				modal={true}
 				open={state.store.isOpen}
 			>
+				<SelectField
+					floatingLabelText="Image?"
+					value={state.store.image}
+					onChange={(event, index, string) => state.input('image', string)}
+					errorText={state.store.errors.image || ''}
+				>
+					{imageList.map((image, inx) => (<MenuItem value={image} primaryText={image} key={'prop_create_container_image_' + inx} />))}
+		        </SelectField><br/>
+
+				<SelectField
+					floatingLabelText="Volume from container?"
+					value={state.store.volumesFrom}
+					onChange={(event, index, string) => state.input('volumesFrom', string)}
+					errorText={state.store.errors.volumesFrom || ''}
+				>
+					{containerList.map((item, inx) => (
+						<MenuItem value={item.value} primaryText={item.label} key={'prop_create_container_volumesFrom_' + inx} />)
+					)}
+		        </SelectField>
+
 				{Object.keys(textFieldsLabels).map((prop, inx) => {
 					return (
 						<div key={'div_prop_create_container_' + inx}>
@@ -86,15 +111,6 @@ const DialogCreateContainer = (state) => {
 						</div>
 					);
 				})}
-
-				<SelectField
-					floatingLabelText="Image?"
-					value={state.store.image}
-					onChange={(event, index, string) => state.input('image', string)}
-					errorText={state.store.errors.image || ''}
-				>
-					{imageList.map((image, inx) => (<MenuItem value={image} primaryText={image} key={'prop_create_container_image_' + inx} />))}
-		        </SelectField>
 			</Dialog>
 		</span>
 	);
@@ -102,8 +118,9 @@ const DialogCreateContainer = (state) => {
 
 export default connect(
 	state => ({
-		store : state.dialogCreateContainer,
-		images: state.images,
+		containers : state.containers,
+		store      : state.dialogCreateContainer,
+		images     : state.images,
 	}),
 	dispatch => ({
 		add    : data           => dispatch({type: 'CONTAINER_ADD', data}),
