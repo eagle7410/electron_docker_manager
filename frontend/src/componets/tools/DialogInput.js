@@ -3,8 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import {connect} from "react-redux";
-
-const INPUT_DIALOG_PREFIX = 'INPUT_DIALOG';
+import {PREFIX_INPUT_DIALOG} from '../../const/prefix'
 
 const DialogInput = (state) => {
 	const isDisabledSubmit = !(state.dialog && state.dialog.input && state.dialog.input.length);
@@ -44,7 +43,7 @@ export default connect(
 		dialog: state.dialogInput,
 	}),
 	dispatch => ({
-		close  : ()      => dispatch({type: `${INPUT_DIALOG_PREFIX}_CLOSE`}),
-		input  : (input) => dispatch({type: `${INPUT_DIALOG_PREFIX}_INPUT`, data : {input}}),
+		close  : ()      => dispatch({type: `${PREFIX_INPUT_DIALOG}_CLOSE`}),
+		input  : (input) => dispatch({type: `${PREFIX_INPUT_DIALOG}_INPUT`, data : {input}}),
 	})
 )(DialogInput);

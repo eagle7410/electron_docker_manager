@@ -24,7 +24,8 @@ let commands = {
 
 		return `docker commit ${options.trim()} ${id}  ${repository}:${tag}`;
 	},
-	imageSave            : ({id, path}) => `docker save -o "${path}" ${id}`
+	imageSave            : ({id, path}) => `docker save -o "${path}" ${id}`,
+	imageDelete          : ({id})       => `docker rmi ${id}`
 };
 
 

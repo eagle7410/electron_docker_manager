@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import IconOn from 'material-ui/svg-icons/image/flash-on';
 import IconOff from 'material-ui/svg-icons/image/flash-off';
 import IconUpdate from 'material-ui/svg-icons/action/update';
+import {PREFIX_CONTAINER} from '../../../const/prefix'
 import {toggleContainer} from '../../../api/api';
 
 const ButtomStatus = (state) => {
@@ -66,7 +67,7 @@ export default connect(
 		store: state.containers
 	}),
 	dispatch => ({
-		wait   : id   => dispatch({type: 'CONTAINER_WAIT_CHANGE_STATUS', data: id}),
-		change : data => dispatch({type: 'CONTAINER_CHANGE', data})
+		wait   : id   => dispatch({type: `${PREFIX_CONTAINER}_WAIT_CHANGE_STATUS`, data: id}),
+		change : data => dispatch({type: `${PREFIX_CONTAINER}_CHANGE`, data})
 	})
 )(ButtomStatus);

@@ -1,3 +1,4 @@
+import {PREFIX_CONFIRM_DIALOG} from '../const/prefix'
 const noop = () => {};
 
 const initialState = {
@@ -8,12 +9,10 @@ const initialState = {
 
 };
 
-const CONFIRM_DIALOG_PREFIX = 'CONFIRM_DIALOG';
-
 const dialogConfirm = (state = initialState, action) => {
 	// eslint-disable-next-line
 	switch (action.type) {
-		case `${CONFIRM_DIALOG_PREFIX}_OPEN`:
+		case `${PREFIX_CONFIRM_DIALOG}_OPEN`:
 			return {
 				...state,
 				question    : action.data.question,
@@ -21,7 +20,7 @@ const dialogConfirm = (state = initialState, action) => {
 				isOpen      : true,
 			};
 
-		case `${CONFIRM_DIALOG_PREFIX}_CLOSE`:
+		case `${PREFIX_CONFIRM_DIALOG}_CLOSE`:
 			return {...initialState};
 	}
 

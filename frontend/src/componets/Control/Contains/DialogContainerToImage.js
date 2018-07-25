@@ -3,10 +3,12 @@ import {connect} from "react-redux";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-
+import {
+	PREFIX_CONTAINER_2_IMAGE,
+	PREFIX_IMAGES
+} from '../../../const/prefix'
 import {containerToImage} from '../../../api/api';
 
-const PREFIX = 'CREATE_IMAGE_FROM_CONTAINER_DIALOG';
 const PREFIX_KEY = 'prop_commit_container';
 const requiredProps = ['repository', 'tag'];
 const textFieldsLabels = {
@@ -88,9 +90,9 @@ export default connect(
 		images: state.images,
 	}),
 	dispatch => ({
-		add    : data           => dispatch({type: 'IMAGES_ADD', data}),
-		errors : data           => dispatch({type: `${PREFIX}_ERRORS`, data}),
-		close  : ()             => dispatch({type: `${PREFIX}_CLOSE`}),
-		input  : (field, value) => dispatch({type: `${PREFIX}_INPUT`, data : {field, value}}),
+		add    : data           => dispatch({type: `${PREFIX_IMAGES}_ADD`, data}),
+		errors : data           => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_ERRORS`, data}),
+		close  : ()             => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_CLOSE`}),
+		input  : (field, value) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_INPUT`, data : {field, value}}),
 	})
 )(DialogContainerToImage);

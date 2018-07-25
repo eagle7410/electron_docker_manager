@@ -5,10 +5,11 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
+import {
+	PREFIX_CREATE_CONTAINER_DIALOG,
+	PREFIX_CONTAINER
+} from '../../../const/prefix';
 import {createContainer} from '../../../api/api';
-
-const CREATE_CONTAINER_DIALOG_PREFIX = 'CREATE_CONTAINER_DIALOG';
 
 const DialogCreateContainer = (state) => {
 	const imageList = state.images.data.map(image => `${image.REPOSITORY}:${image.TAG}`);
@@ -123,9 +124,9 @@ export default connect(
 		images     : state.images,
 	}),
 	dispatch => ({
-		add    : data           => dispatch({type: 'CONTAINER_ADD', data}),
-		errors : data           => dispatch({type: `${CREATE_CONTAINER_DIALOG_PREFIX}_ERRORS`, data}),
-		close  : ()             => dispatch({type: `${CREATE_CONTAINER_DIALOG_PREFIX}_CLOSE`}),
-		input  : (field, value) => dispatch({type: `${CREATE_CONTAINER_DIALOG_PREFIX}_INPUT`, data : {field, value}}),
+		add    : data           => dispatch({type: `${PREFIX_CONTAINER}_ADD`, data}),
+		errors : data           => dispatch({type: `${PREFIX_CREATE_CONTAINER_DIALOG}_ERRORS`, data}),
+		close  : ()             => dispatch({type: `${PREFIX_CREATE_CONTAINER_DIALOG}_CLOSE`}),
+		input  : (field, value) => dispatch({type: `${PREFIX_CREATE_CONTAINER_DIALOG}_INPUT`, data : {field, value}}),
 	})
 )(DialogCreateContainer);

@@ -1,3 +1,4 @@
+import {PREFIX_IMAGES} from '../const/prefix'
 const initialState = {
 	data : [],
 	wait : '',
@@ -6,22 +7,22 @@ const initialState = {
 const images = (state = initialState, action) => {
 	// eslint-disable-next-line
 	switch (action.type) {
-		case 'IMAGES_WAIT_STOP':
+		case `${PREFIX_IMAGES}_WAIT_STOP`:
 			return {
 				...state,
 				wait : ''
 			};
-		case 'IMAGES_WAIT':
+		case `${PREFIX_IMAGES}_WAIT`:
 			return {
 				...state,
 				wait : action.data
 			};
-		case 'IMAGES_INIT':
+		case `${PREFIX_IMAGES}_INIT`:
 			return {
 				...state,
 				data : action.data
 			};
-		case 'IMAGES_ADD':
+		case `${PREFIX_IMAGES}_ADD`:
 			return {
 				...state,
 				data : state.data.concat([action.data])

@@ -6,16 +6,17 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
-
+import {
+	PREFIX_CONTAINER_2_IMAGE,
+	PREFIX_INPUT_DIALOG,
+	PREFIX_CONFIRM_DIALOG,
+	PREFIX_CONTAINER
+} from '../../../const/prefix'
 import {
 	renameContainer,
 	deleteContainer,
 	containerEditLabelPorts,
 } from '../../../api/api';
-
-const PREFIX_CONTAINER_2_IMAGE = 'CREATE_IMAGE_FROM_CONTAINER_DIALOG';
-const INPUT_DIALOG_PREFIX      = 'INPUT_DIALOG';
-const CONFIRM_DIALOG_PREFIX    = 'CONFIRM_DIALOG';
 
 const Actions = (state) => {
 	const id = state.row['CONTAINER ID'];
@@ -88,23 +89,22 @@ export default connect(
 	}),
 	dispatch => ({
 		container2ImageOpen : (data) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
-		editLabelPorts      : (input, call) => dispatch({type: `${INPUT_DIALOG_PREFIX}_OPEN`, data : {
+		editLabelPorts      : (input, call) => dispatch({type: `${PREFIX_INPUT_DIALOG}_OPEN`, data : {
 			label      : 'Edit label ports',
 			callSubmit : call,
 			input
 		}}),
-		renameOpen          : (call) => dispatch({type: `${INPUT_DIALOG_PREFIX}_OPEN`, data : {
+		renameOpen          : (call) => dispatch({type: `${PREFIX_INPUT_DIALOG}_OPEN`, data : {
 			label      : 'Enter new name',
 			callSubmit : call
 		}}),
-		confirmDeleteOpen  : (call) => dispatch({type: `${CONFIRM_DIALOG_PREFIX}_OPEN`, data : {
+		confirmDeleteOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
 			question    : 'You is sure?',
 			callConfirm : call
 		}}),
-		inputDialogClose          : ()    => dispatch({type: `${INPUT_DIALOG_PREFIX}_CLOSE`}),
-		deleteClose               : ()    => dispatch({type: `${CONFIRM_DIALOG_PREFIX}_CLOSE`}),
-		containerChangeLabelPorts : data  => dispatch({type: 'CONTAINER_CHANGE_LABEL_PORTS', data}),
-		containerChange           : data  => dispatch({type: 'CONTAINER_CHANGE', data}),
-		containerDeleted          : id    => dispatch({type: 'CONTAINER_DELETE', data : id})
+		inputDialogClose          : ()    => dispatch({type: `${PREFIX_INPUT_DIALOG}_CLOSE`}),
+		deleteClose               : ()    => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_CLOSE`}),
+		containerChange           : data  => dispatch({type: `${PREFIX_CONTAINER}_CHANGE`, data}),
+		containerDeleted          : id    => dispatch({type: `${PREFIX_CONTAINER}_DELETE`, data : id})
 	})
 )(Actions);

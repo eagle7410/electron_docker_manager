@@ -8,7 +8,7 @@ import Contains from './Contains/Contains';
 import Images from './Images/Images';
 import DialogInput from '../tools/DialogInput'
 import DialogConfirm from '../tools/DialogConfirm'
-
+import {PREFIX_TABS} from '../../const/prefix'
 
 const Control = (state) => {
 
@@ -30,13 +30,13 @@ const Control = (state) => {
 	);
 };
 
-const PREFIX = 'TABS';
+;
 
 export default connect(
 	state => ({
 		store: state.tabs
 	}),
 	dispatch => ({
-		changeTab : data => dispatch({type : `${PREFIX}_CHANGE_SELECT`, data})
+		changeTab : data => dispatch({type : `${PREFIX_TABS}_CHANGE_SELECT`, data})
 	})
 )(Control);

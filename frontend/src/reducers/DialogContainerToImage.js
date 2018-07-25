@@ -1,3 +1,4 @@
+import {PREFIX_CONTAINER_2_IMAGE} from '../const/prefix';
 
 const initialState = {
 	id         : null,
@@ -10,18 +11,16 @@ const initialState = {
 	errors     : {},
 };
 
-const PREFIX = 'CREATE_IMAGE_FROM_CONTAINER_DIALOG';
-
 const dialogContainerToImage = (state = initialState, action) => {
 	// eslint-disable-next-line
 	switch (action.type) {
-		case `${PREFIX}_ERRORS`:
+		case `${PREFIX_CONTAINER_2_IMAGE}_ERRORS`:
 			return {
 				...state,
 				errors : action.data,
 				isOpen : true,
 			};
-		case `${PREFIX}_OPEN`:
+		case `${PREFIX_CONTAINER_2_IMAGE}_OPEN`:
 			return {
 				...state,
 				...action.data,
@@ -29,13 +28,13 @@ const dialogContainerToImage = (state = initialState, action) => {
 				isOpen : true,
 			};
 
-		case `${PREFIX}_INPUT`:
+		case `${PREFIX_CONTAINER_2_IMAGE}_INPUT`:
 			return {
 				...state,
 				[action.data.field] : action.data.value
 			};
 
-		case `${PREFIX}_CLOSE`:
+		case `${PREFIX_CONTAINER_2_IMAGE}_CLOSE`:
 			return {
 				...initialState
 			};

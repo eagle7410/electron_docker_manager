@@ -1,3 +1,4 @@
+import {PREFIX_CONTAINER} from '../const/prefix'
 const initialState = {
 	data : [],
 	wait : ''
@@ -8,7 +9,7 @@ const containers = (state = initialState, action) => {
 
 	// eslint-disable-next-line
 	switch (action.type) {
-		case 'CONTAINER_CHANGE_LABEL_PORTS':
+		case `${PREFIX_CONTAINER}_CHANGE_LABEL_PORTS`:
 			return {
 				...state,
 				data : state.data.map(row => {
@@ -17,19 +18,19 @@ const containers = (state = initialState, action) => {
 				})
 			};
 
-		case 'CONTAINER_WAIT_CHANGE_STATUS':
+		case `${PREFIX_CONTAINER}_WAIT_CHANGE_STATUS`:
 			return {
 				...state,
 				wait : action.data
 			};
 
-		case 'CONTAINER_ADD':
+		case `${PREFIX_CONTAINER}_ADD`:
 			return {
 				...state,
 				data : state.data.concat([action.data]),
 			};
 
-		case 'CONTAINER_DELETE':
+		case `${PREFIX_CONTAINER}_DELETE`:
 			const id = action.data;
 			data = state.data.filter(row => row['CONTAINER ID'] !== id);
 
@@ -39,7 +40,7 @@ const containers = (state = initialState, action) => {
 				wait : ''
 			};
 
-		case 'CONTAINER_CHANGE':
+		case `${PREFIX_CONTAINER}_CHANGE`:
 			const container = action.data.container;
 			data = state.data.map(row => row['CONTAINER ID'] === container['CONTAINER ID'] ? Object.assign(row, container) : row);
 
@@ -49,7 +50,7 @@ const containers = (state = initialState, action) => {
 				wait : ''
 			};
 
-		case 'CONTAINERS_INIT':
+		case `${PREFIX_CONTAINER}_INIT`:
 			return {
 				...state,
 				data : action.data

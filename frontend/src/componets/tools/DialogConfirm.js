@@ -2,8 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {connect} from "react-redux";
-
-const CONFIRM_DIALOG = 'CONFIRM_DIALOG';
+import {PREFIX_CONFIRM_DIALOG} from '../../const/prefix'
 
 const DialogConfirm = (state) => {
 
@@ -38,6 +37,6 @@ export default connect(
 		confirm: state.dialogConfirm,
 	}),
 	dispatch => ({
-		close  : () => dispatch({type: `${CONFIRM_DIALOG}_CLOSE`}),
+		close  : () => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_CLOSE`}),
 	})
 )(DialogConfirm);

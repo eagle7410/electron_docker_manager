@@ -37,6 +37,10 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/image-delete', async (res, action, data) => {
+		await Cmd.get(commands.imageDelete(data));
+		Send.ok(res, action);
+	}),
 	route('/image-save', async (res, action, data) => {
 		await Cmd.get(commands.imageSave(data));
 		Send.ok(res, action);

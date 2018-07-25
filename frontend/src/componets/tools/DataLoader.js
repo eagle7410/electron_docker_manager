@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 import LoadAnimation from './LoadAnimation'
 import routes from '../../const/app-routes'
 import {init} from '../../api/api';
+import {
+	PREFIX_CONTAINER,
+	PREFIX_IMAGES
+} from '../../const/prefix'
 
 class DataLoader extends Component {
 	async init () {
@@ -63,8 +67,8 @@ export default connect(
 		clearError: () => dispatch({type: 'MOVE_ERROR'}),
 		setError: (err) => dispatch({type: 'SET_ERROR', data: err}),
 		setDockerInfo: ({containers, images}) => {
-			dispatch({type: 'CONTAINERS_INIT', data: containers});
-			dispatch({type: 'IMAGES_INIT', data: images});
+			dispatch({type: `${PREFIX_CONTAINER}_INIT`, data: containers});
+			dispatch({type: `${PREFIX_IMAGES}_INIT`, data: images});
 		}
 	})
 )(DataLoader);

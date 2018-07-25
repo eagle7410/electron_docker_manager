@@ -1,11 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
-
+import {PREFIX_IMAGE_PULL_DIALOG} from '../../../const/prefix';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconPull from 'material-ui/svg-icons/file/cloud-download';
 import IconLoad from 'material-ui/svg-icons/action/get-app';
-
-const PREFIX = 'CREATE_IMAGE_DIALOG';
 
 const ToolsBar = (state) => {
 	return (
@@ -31,6 +29,6 @@ export default connect(
 		dialog: state.dialogInput,
 	}),
 	dispatch => ({
-		createOpen  : () => dispatch({type: `${PREFIX}_OPEN`}),
+		createOpen  : () => dispatch({type: `${PREFIX_IMAGE_PULL_DIALOG}_OPEN`}),
 	})
 )(ToolsBar);
