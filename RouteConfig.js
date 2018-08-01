@@ -23,6 +23,12 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/container-logs', async (res, action, data) => {
+		const text = await Cmd.get(commands.containerLogLines(data));
+
+		Send.ok(res, action, {text});
+	}),
+
 	route('/image-pull', async (res, action, data) => {
 		await Cmd.get(commands.imagePull(data));
 		const image = await ConsoleParser.getOneImageByRepositoryTag(data);

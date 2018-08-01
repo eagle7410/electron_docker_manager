@@ -10,7 +10,8 @@ import {
 	PREFIX_CONTAINER_2_IMAGE,
 	PREFIX_INPUT_DIALOG,
 	PREFIX_CONFIRM_DIALOG,
-	PREFIX_CONTAINER
+	PREFIX_CONTAINER,
+	PREFIX_CONTAINER_LOGS_DIALOG,
 } from '../../../const/prefix'
 import {
 	renameContainer,
@@ -73,6 +74,7 @@ const Actions = (state) => {
 			<MenuItem primaryText="Rename"           onClick={() => state.renameOpen(handleRename)}/>
 			<MenuItem primaryText="Delete"           onClick={() => state.confirmDeleteOpen(handleDelete)}/>
 			<MenuItem primaryText="Commit to image"  onClick={() => handleContainer2Image()} />
+			<MenuItem primaryText="Logs"             onClick={() => state.containerLogsOpen({id})} />
 			<MenuItem primaryText="Bash"             onClick={() => {alert('No implement')}} />
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
@@ -88,6 +90,7 @@ export default connect(
 		images : state.images
 	}),
 	dispatch => ({
+		containerLogsOpen   : (data) => dispatch({type: `${PREFIX_CONTAINER_LOGS_DIALOG}_OPEN`, data}),
 		container2ImageOpen : (data) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
 		editLabelPorts      : (input, call) => dispatch({type: `${PREFIX_INPUT_DIALOG}_OPEN`, data : {
 			label      : 'Edit label ports',

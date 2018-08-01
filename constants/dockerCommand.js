@@ -27,9 +27,9 @@ let commands = {
 	},
 	imageSave            : ({id, path}) => `docker save -o "${path}" ${id}`,
 	imageDelete          : ({id})       => `docker rmi ${id}`,
-	imagePull            : ({repository, tag})       => `docker pull ${repository}:${tag}`
+	imagePull            : ({repository, tag}) => `docker pull ${repository}:${tag}`,
+	containerLogLines    : ({containerId, countLines}) => `docker logs ${containerId} --tail ${countLines}`
 };
-
 
 module.exports = commands;
 

@@ -13,9 +13,11 @@ const imageSave               = (data)        => reqFull(save, '/image-save', da
 const imageDelete             = (data)        => reqFull(save, '/image-delete', data);
 const imageEditLabelPorts     = (data)        => reqFull(save, '/image-edit-label-ports', data);
 const imagePull               = (data)        => reqFull(save, '/image-pull', data);
+const containerLogs           = (data)        => reqFull(save, '/container-logs', data);
 
 export {
 	init,
+	containerLogs,
 	containerEditLabelPorts,
 	containerToImage,
 	toggleContainer,
