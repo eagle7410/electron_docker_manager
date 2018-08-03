@@ -12,11 +12,13 @@ import {
 	PREFIX_CONFIRM_DIALOG,
 	PREFIX_CONTAINER,
 	PREFIX_CONTAINER_LOGS_DIALOG,
+	PREFIX_CONTAINER_BASH
 } from '../../../const/prefix'
 import {
 	renameContainer,
 	deleteContainer,
 	containerEditLabelPorts,
+	containerBashOpen
 } from '../../../api/api';
 
 const Actions = (state) => {
@@ -62,6 +64,19 @@ const Actions = (state) => {
 		}, state.inputDialogClose));
 	};
 
+	const handlerBashOpen = async () => {
+		try {
+			await containerBashOpen({id});
+			state.containerBashOpen({id});
+
+		} catch (e) {
+			alert(e.message ? e.message : e);
+		}
+	};
+
+	let itemMenuBash = <MenuItem primaryText="Bash" onClick={() => handlerBashOpen()} />;
+	if (state.row.STATUS.toLowerCase().includes('exit')) itemMenuBash = '';
+
 	return (
 	<span>
 		<IconMenu
@@ -75,7 +90,7 @@ const Actions = (state) => {
 			<MenuItem primaryText="Delete"           onClick={() => state.confirmDeleteOpen(handleDelete)}/>
 			<MenuItem primaryText="Commit to image"  onClick={() => handleContainer2Image()} />
 			<MenuItem primaryText="Logs"             onClick={() => state.containerLogsOpen({id})} />
-			<MenuItem primaryText="Bash"             onClick={() => {alert('No implement')}} />
+			{itemMenuBash}
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>
@@ -90,6 +105,7 @@ export default connect(
 		images : state.images
 	}),
 	dispatch => ({
+		containerBashOpen   : (data) => dispatch({type: `${PREFIX_CONTAINER_BASH}_OPEN`, data}),
 		containerLogsOpen   : (data) => dispatch({type: `${PREFIX_CONTAINER_LOGS_DIALOG}_OPEN`, data}),
 		container2ImageOpen : (data) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
 		editLabelPorts      : (input, call) => dispatch({type: `${PREFIX_INPUT_DIALOG}_OPEN`, data : {

@@ -14,9 +14,15 @@ const imageDelete             = (data)        => reqFull(save, '/image-delete', 
 const imageEditLabelPorts     = (data)        => reqFull(save, '/image-edit-label-ports', data);
 const imagePull               = (data)        => reqFull(save, '/image-pull', data);
 const containerLogs           = (data)        => reqFull(save, '/container-logs', data);
+const containerBashOpen       = (data)        => reqFull(save, '/container-bash-open', data);
+const containerBashClose      = (data)        => reqFull(save, '/container-bash-close', data);
+const containerBashExec       = (data)        => reqFull(save, '/container-bash-exec', data);
 
 export {
 	init,
+	containerBashExec,
+	containerBashClose,
+	containerBashOpen,
 	containerLogs,
 	containerEditLabelPorts,
 	containerToImage,

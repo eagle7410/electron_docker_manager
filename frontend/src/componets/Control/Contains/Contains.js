@@ -13,6 +13,7 @@ import ToolsBar from './ToolsBar';
 import Actions from './Actions';
 import DialogContainerToImage from './DialogContainerToImage';
 import DialogContainerLogs from './DialogContainerLogs';
+import DialogContainerBash from './DialogContainerBash';
 
 const PROPS_ORDER = [
 	'NAMES',
@@ -71,6 +72,7 @@ const Contains = (state) => {
 			</Table>
 			<DialogContainerToImage/>
 			<DialogContainerLogs/>
+			<DialogContainerBash/>
 		</div>
 	);
 };

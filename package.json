@@ -29,7 +29,8 @@
     "electron": "2.0.5",
     "electron-devtools-installer": "2.2.4",
     "fs-extra": "7.0.0",
-    "node-cmd": "3.0.0"
+    "node-cmd": "3.0.0",
+    "shell-session": "1.0.1"
   },
   "devDependencies": {
     "console-color": "https://github.com/eagle7410/console-color.git"

@@ -2,26 +2,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import SocketClient from "../../utils/SocketClient";
-
+import {
+	PREFIX_CONTAINER_BASH
+} from '../../const/prefix'
 
 const socketClient = new SocketClient();
 class SocketListen extends Component {
 	constructor(props){
 		super(props);
-		socketClient.on('log-add', this.props.addLog);
+		socketClient.on('out-add', this.props.addOut);
 	}
 
 	render () {
-		return this.props.children;
+		return '';
 	}
 }
 
 export default connect(
-	state => ({
-		store: state.dataLoader
-	}),
+	state => ({}),
 	dispatch => ({
-		addLog : data => dispatch({type: 'ADD_LOG', data}),
+		addOut : data => dispatch({type: `${PREFIX_CONTAINER_BASH}_ADD_OUT`, data}),
 	})
 )(SocketListen);
 

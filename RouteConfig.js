@@ -2,10 +2,14 @@ const Send             = require('./libs/Send');
 const Cmd              = require('./libs/Cmd');
 const ConsoleParser    = require('./libs/ConsoleParser');
 const timeout          = require('./libs/timeout');
+const SocketServer     = require('./libs/SocketServer');
 const commands         = require('./constants/dockerCommand');
 const FileSystemDialog = require('./libs/FileSystemDialog');
 const LogManager       = require('./libs/LogManager');
+const ShellSession     = require('shell-session');
+
 let windowMain = null;
+let shell = null;
 
 LogManager.init();
 
@@ -23,12 +27,37 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/container-bash-exec', async (res, action, data) => {
+
+		shell.exec(data.command);
+
+		Send.ok(res, action);
+	}),
+	route('/container-bash-close', async (res, action, data) => {
+		if (shell) shell.down();
+		Send.ok(res, action);
+	}),
+	route('/container-bash-open', async (res, action, data) => {
+
+		if (shell) shell.down();
+		const sockets = new SocketServer(windowMain);
+		shell = ShellSession.instance({
+			cmd : commands.containerBashOpen(data),
+			labelOut : '',
+			labelCmd : '',
+			callOut : (out) => {
+				sockets.emit('out-add', {out})
+			},
+			callErr : (out) => sockets.emit('out-add', {out})
+		});
+
+		Send.ok(res, action);
+	}),
 	route('/container-logs', async (res, action, data) => {
 		const text = await Cmd.get(commands.containerLogLines(data));
 
 		Send.ok(res, action, {text});
 	}),
-
 	route('/image-pull', async (res, action, data) => {
 		await Cmd.get(commands.imagePull(data));
 		const image = await ConsoleParser.getOneImageByRepositoryTag(data);

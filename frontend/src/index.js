@@ -12,7 +12,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {ListeningRouter} from './componets/tools/ListeningRouter';
 import {reducer} from './reducers';
 import SocketListen from './componets/tools/SocketListen'
-import Logs from './componets/tools/Logs'
 const browserHistory = createHistory();
 const middleware = routerMiddleware(browserHistory);
 
@@ -27,7 +26,7 @@ ReactDOM.render(
 						<App/>
 					</MuiThemeProvider>
 				</ListeningRouter>
-				<SocketListen><Logs/></SocketListen>
+				<SocketListen />
 			</div>
 		</Provider>
 	</BrowserRouter>,

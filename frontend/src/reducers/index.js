@@ -9,10 +9,13 @@ import {dialogCreateContainer} from './DialogCreateContainer'
 import {dialogContainerToImage} from './DialogContainerToImage'
 import {dialogPullImage} from './DialogPullImage'
 import {dialogContainerLogs} from './DialogContainerLogs'
+import {dialogContainerBash} from './DialogContainerBash'
+
 import {tabs} from './Tabs'
 
 const reducer = combineReducers({
 	routing: routerReducer,
+	dialogContainerBash,
 	dialogContainerLogs,
 	dialogContainerToImage,
 	dialogInput,
