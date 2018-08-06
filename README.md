@@ -19,9 +19,6 @@ node ./cli/prod-start.js
 ## Version
 1.0.0 - base.
 
-## Extends
-[Extends description](https://github.com/eagle7410/fsp-eagle/blob/master/ext.md)
-
 ## People
 Developer [Igor Stcherbina](https://github.com/eagle7410)
 
