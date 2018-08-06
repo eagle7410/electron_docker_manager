@@ -6,7 +6,6 @@ const renameContainer         = (id, newname) => reqFull(save, '/container-renam
 const deleteContainer         = (id)          => reqFull(save, '/container-delete', {id});
 const createContainer         = data          => reqFull(save, '/container', data);
 const saveFilePath            = ()            => reqFull(save, '/path-save');
-const openFilePath            = ()            => reqFull(save, '/path-open');
 const containerToImage        = (data)        => reqFull(save, '/container-commit', data);
 const containerEditLabelPorts = (data)        => reqFull(save, '/container-edit-label-ports', data);
 const imageSave               = (data)        => reqFull(save, '/image-save', data);

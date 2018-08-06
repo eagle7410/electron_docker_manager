@@ -12,12 +12,7 @@ import {
 	PREFIX_CONTAINER_BASH
 } from '../../../const/prefix'
 
-import {
-	containerBashClose,
-	containerBashExec
-} from '../../../api/api';
-
-import LoadAnimation from "../../tools/LoadAnimation";
+import {containerBashExec} from '../../../api/api';
 
 const PREFIX_KEY = 'prop_bash_container';
 const requiredProps = ['command'];
@@ -27,15 +22,7 @@ const textFieldsLabels = {
 };
 
 const DialogContainerBash = (state) => {
-	const handelClose = async () => {
-		try {
-			await containerBashClose()
-		} catch (e) {
-			alert(e.message ? e.message : e);
-		} finally {
-			state.close();
-		}
-	};
+
 	const validate = () => {
 		let errors = {};
 

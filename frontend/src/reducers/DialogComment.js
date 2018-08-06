@@ -1,5 +1,4 @@
 import {PREFIX_COMMENT} from '../const/prefix'
-const noop = () => {};
 
 const initialState = {
 	comment : '',

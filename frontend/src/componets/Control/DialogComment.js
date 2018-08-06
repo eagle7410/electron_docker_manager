@@ -80,7 +80,7 @@ const DialogComment = (state) => {
 				/>
 			</Dialog>
 		</span>
-	);;
+	);
 };
 
 export default connect(

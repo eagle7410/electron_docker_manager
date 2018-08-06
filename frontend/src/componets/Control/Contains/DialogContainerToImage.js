@@ -8,7 +8,6 @@ import {
 	PREFIX_IMAGES
 } from '../../../const/prefix'
 import {containerToImage} from '../../../api/api';
-import LoadAnimation from "../../tools/LoadAnimation";
 
 const PREFIX_KEY = 'prop_commit_container';
 const requiredProps = ['repository', 'tag'];

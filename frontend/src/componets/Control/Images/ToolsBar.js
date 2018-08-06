@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {PREFIX_IMAGE_PULL_DIALOG} from '../../../const/prefix';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconPull from 'material-ui/svg-icons/file/cloud-download';
-import IconLoad from 'material-ui/svg-icons/action/get-app';
 import DialogPullImage from './DialogPullImage';
 
 const ToolsBar = (state) => {
