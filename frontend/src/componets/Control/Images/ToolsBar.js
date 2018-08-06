@@ -15,12 +15,6 @@ const ToolsBar = (state) => {
 				icon={<IconPull/>}
 				onClick={state.dialogPullOpen}
 			/>
-			<RaisedButton
-				label="Image load"
-				primary={true}
-				icon={<IconLoad/>}
-				onClick={() => alert('not implement')}
-			/>
 			<DialogPullImage />
 		</span>
 	);

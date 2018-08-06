@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import ContentSave from 'material-ui/svg-icons/content/save';
+import ContentSave from 'material-ui/svg-icons/content/content-copy';
 import AvLoop from 'material-ui/svg-icons/av/loop';
 
 import {
@@ -75,6 +75,15 @@ const DialogContainerBash = (state) => {
 		}
 	};
 
+	const handlerCopyCmd = () => {
+		let $buffer = document.createElement('input');
+		document.body.appendChild($buffer);
+		$buffer.value = state.store.dockerCmd;
+		$buffer.select();
+		document.execCommand('copy',false);
+		$buffer.remove();
+	};
+
 	return (
 		<span >
 			<Dialog
@@ -88,6 +97,7 @@ const DialogContainerBash = (state) => {
 					<FloatingActionButton
 						mini={true}
 						style={{marginRight : 5}}
+						onClick={handlerCopyCmd}
 					>
 						<ContentSave />
 				    </FloatingActionButton>
