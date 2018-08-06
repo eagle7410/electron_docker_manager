@@ -21,6 +21,7 @@ const commentSave             = (data)        => reqFull(save, '/comment-save', 
 
 export {
 	init,
+	commentSave,
 	containerBashExec,
 	containerBashClose,
 	containerBashOpen,

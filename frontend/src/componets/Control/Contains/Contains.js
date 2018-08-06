@@ -14,6 +14,7 @@ import Actions from './Actions';
 import DialogContainerToImage from './DialogContainerToImage';
 import DialogContainerLogs from './DialogContainerLogs';
 import DialogContainerBash from './DialogContainerBash';
+import TextField from "material-ui/TextField/index";
 
 const PROPS_ORDER = [
 	'NAMES',
@@ -43,7 +44,15 @@ const Contains = (state) => {
 						<Actions row={n}/>
 						<ButtonStatus row={n}/>
 					</TableRowColumn>
-					{PROPS_ORDER.map((prop,inx) => (<TableRowColumn key={`cont_cell_${inx}_${id}`}>{n[prop]}</TableRowColumn>))}
+					{PROPS_ORDER.map((prop,inx) => (
+						<TableRowColumn key={`cont_cell_${inx}_${id}`}>
+							<TextField
+								id={`cont_cell_field_${id}_${inx}`}
+								value={n[prop]}
+								multiLine={true}
+								underlineShow={false}
+								/>
+						</TableRowColumn>))}
 				</TableRow>
 			);
 		});

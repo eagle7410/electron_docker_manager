@@ -9,7 +9,7 @@ import Divider from 'material-ui/Divider';
 import {
 	PREFIX_IMAGES,
 	PREFIX_CONFIRM_DIALOG,
-	PREFIX_INPUT_DIALOG,
+	PREFIX_INPUT_DIALOG, PREFIX_COMMENT,
 } from '../../../const/prefix';
 import {
 	saveFilePath,
@@ -73,6 +73,11 @@ const Actions = (state) => {
 		<MenuItem primaryText="Delete" onClick={() => state.confirmEditOpen(handelDelete)}/>
 		<MenuItem primaryText="Save"   onClick={handelSave} />
 		<MenuItem primaryText="Edit label ports" onClick={() => handleEditLabelPorts()} />
+		<MenuItem primaryText="Edit comment"     onClick={() => state.editCommentOpen({
+			id,
+			type : 'images',
+			comment : state.row.COMMENT
+		})} />
 
 		<Divider />
 		<MenuItem primaryText="Cancel"/>
@@ -90,6 +95,7 @@ export default connect(
 		wait     : (data)           => dispatch({type: `${PREFIX_IMAGES}_WAIT`, data}),
 		waitStop : ()               => dispatch({type: `${PREFIX_IMAGES}_WAIT_STOP`}),
 		imageDelete : (data)        => dispatch({type: `${PREFIX_IMAGES}_DELETE`, data}),
+		editCommentOpen  : (data) => dispatch({type: `${PREFIX_COMMENT}_OPEN`, data}),
 		confirmEditClose : ()     => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_CLOSE`}),
 		confirmEditOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
 			question    : 'You is sure?',

@@ -12,6 +12,7 @@ import {
 	TableHeaderColumn,
 
 } from 'material-ui/Table';
+import TextField from "material-ui/TextField/index";
 
 const PROP_ORDER = [
 	'REPOSITORY',
@@ -37,7 +38,16 @@ const Images = (state) => {
 			return (
 				<TableRow key={`img_${id}`}>
 					<TableRowColumn><Actions row={row}/> {id}</TableRowColumn>
-					{PROP_ORDER.map((prop, inx) => (<TableRowColumn key={`img_cell_${id}_${inx}`}>{row[prop]}</TableRowColumn>))}
+					{PROP_ORDER.map((prop, inx) => (
+						<TableRowColumn key={`img_cell_${id}_${inx}`}>
+							<TextField
+								id={`img_cell_field_${id}_${inx}`}
+								value={row[prop]}
+								multiLine={true}
+								underlineShow={false}
+							/>
+						</TableRowColumn>
+					))}
 				</TableRow>
 			);
 		});

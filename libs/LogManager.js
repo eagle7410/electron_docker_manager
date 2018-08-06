@@ -12,7 +12,7 @@ class LogManager {
 			fs.mkdirsSync(PATH_LOGS);
 			fs.writeJsonSync(PATH_CONTAINERS_PORTS_MAP, {}, {spaces : '\t'});
 			fs.writeJsonSync(PATH_IMAGES_PORTS_MAP, {}, {spaces : '\t'});
-			fs.writeJsonSync(PATH_COMMENTS, {"containers" : {}, "images" : {}}, {spaces : '\t'});
+			fs.writeJsonSync(PATH_COMMENTS, { "containers" : {}, "images" : {} }, {spaces : '\t'});
 		}
 	}
 
@@ -30,6 +30,13 @@ class LogManager {
 		if (!comments) comments = await this.commentsLoad();
 
 		return comments.containers;
+	}
+
+	static async commentSave({type, id, comment}) {
+		if (!comments) comments = await this.commentsLoad();
+		comments[type][id] = comment;
+
+		return fs.writeJson(PATH_COMMENTS, comments, {spaces : '\t'});
 	}
 
 	static imagesLabelPorts () {

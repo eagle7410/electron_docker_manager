@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {
 	PREFIX_COMMENT, PREFIX_CONFIRM_DIALOG
 } from '../../const/prefix'
+import {commentSave} from '../../api/api'
 
 const requiredProp = ['type', 'id'];
 const allProps = ['comment'].concat(requiredProp);
@@ -37,8 +38,16 @@ const DialogComment = (state) => {
 		let data = {};
 		for(let prop of allProps ) data[prop] = state.store[prop] || '';
 
-		// TODO: clear
-		console.log('data is ', data);
+		try {
+			await commentSave(data);
+
+			state.save(data);
+			state.onClose();
+
+		} catch (e) {
+			alert(e.message ? e.message : e);
+		}
+
 	};
 
 	return (
@@ -84,6 +93,7 @@ export default connect(
 			question    : 'You is sure?',
 			callConfirm : call
 		}}),
+		save : data => dispatch({type : `${PREFIX_COMMENT}_SAVE`, data}),
 		onClose : () => dispatch({type : `${PREFIX_COMMENT}_CLOSE`}),
 		onInput : (data) => dispatch({type : `${PREFIX_COMMENT}_INPUT`, data}),
 		errors  : (data) => dispatch({type : `${PREFIX_COMMENT}_ERRORS`, data}),

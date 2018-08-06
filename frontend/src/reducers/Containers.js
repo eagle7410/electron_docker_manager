@@ -1,4 +1,7 @@
-import {PREFIX_CONTAINER} from '../const/prefix'
+import {
+	PREFIX_CONTAINER,
+	PREFIX_COMMENT
+} from '../const/prefix'
 const initialState = {
 	data : [],
 	wait : ''
@@ -6,9 +9,23 @@ const initialState = {
 
 const containers = (state = initialState, action) => {
 	let data;
+	let newState;
 
 	// eslint-disable-next-line
 	switch (action.type) {
+		case `${PREFIX_COMMENT}_SAVE`:
+			newState = {...state};
+
+			if (action.data.type !== 'containers')
+				return state;
+
+			newState.data = newState.data.map(row => {
+				if (row['CONTAINER ID'] === action.data.id) row.COMMENT = action.data.comment;
+				return row;
+			});
+
+			return newState;
+
 		case `${PREFIX_CONTAINER}_CHANGE_LABEL_PORTS`:
 			return {
 				...state,

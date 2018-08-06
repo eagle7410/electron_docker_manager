@@ -27,6 +27,10 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/comment-save', async (res, action, data) => {
+		LogManager.commentSave(data);
+		Send.ok(res, action);
+	}),
 	route('/container-bash-exec', async (res, action, data) => {
 
 		shell.exec(data.command);
