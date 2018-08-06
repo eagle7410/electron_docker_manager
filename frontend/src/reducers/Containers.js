@@ -42,7 +42,7 @@ const containers = (state = initialState, action) => {
 
 		case `${PREFIX_CONTAINER}_CHANGE`:
 			const container = action.data.container;
-			data = state.data.map(row => row['CONTAINER ID'] === container['CONTAINER ID'] ? Object.assign(row, container) : row);
+			data = state.data.map(row => row['CONTAINER ID'] === container['CONTAINER ID'] ? Object.assign({}, row, container) : row);
 
 			return {
 				...state,

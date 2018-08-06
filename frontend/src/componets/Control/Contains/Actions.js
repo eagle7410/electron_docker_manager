@@ -74,8 +74,6 @@ const Actions = (state) => {
 		}
 	};
 
-	let itemMenuBash = <MenuItem primaryText="Bash" onClick={() => handlerBashOpen()} />;
-	if (state.row.STATUS.toLowerCase().includes('exit')) itemMenuBash = '';
 
 	return (
 	<span>
@@ -90,7 +88,11 @@ const Actions = (state) => {
 			<MenuItem primaryText="Delete"           onClick={() => state.confirmDeleteOpen(handleDelete)}/>
 			<MenuItem primaryText="Commit to image"  onClick={() => handleContainer2Image()} />
 			<MenuItem primaryText="Logs"             onClick={() => state.containerLogsOpen({id})} />
-			{itemMenuBash}
+			<MenuItem primaryText="Bash"
+			          onClick={() => handlerBashOpen()}
+			          disabled={state.row.STATUS.toLowerCase().includes('exit')}
+			/>
+
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>
