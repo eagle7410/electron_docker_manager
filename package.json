@@ -2,7 +2,7 @@
   "name": "electron_docker_manager",
   "version": "1.0.0",
   "description": "Manager for docker. Use  electron js.",
-  "main": "index-app-dev.js",
+  "main": "index-app.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eagle7410/electron_docker_manager.git"

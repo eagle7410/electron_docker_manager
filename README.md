@@ -1,5 +1,15 @@
 # Electron docker manager
+## Cli
 
+Rebuild frontend
+```
+node ./cli/prod-build.js
+```
+
+Build production application start.
+```
+node ./cli/prod-start.js
+```
 
 ## Version
 1.0.0 - base.

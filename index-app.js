@@ -8,10 +8,9 @@ const includes = async () => {
 	try {
 		let mainWindow = new BrowserWindow({});
 		mainWindow.maximize();
-
 		await Server.run(mainWindow, isDev);
-
-		mainWindow.loadURL('http://localhost:3000/');
+		
+		mainWindow.loadURL(`file://${__dirname}/html/index.html`);
 		mainWindow.on('closed', () => {
 			mainWindow = null;
 			app.quit();
