@@ -17,6 +17,7 @@ const containerLogs           = (data)        => reqFull(save, '/container-logs'
 const containerBashOpen       = (data)        => reqFull(save, '/container-bash-open', data);
 const containerBashClose      = (data)        => reqFull(save, '/container-bash-close', data);
 const containerBashExec       = (data)        => reqFull(save, '/container-bash-exec', data);
+const commentSave             = (data)        => reqFull(save, '/comment-save', data);
 
 export {
 	init,

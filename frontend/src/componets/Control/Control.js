@@ -8,6 +8,7 @@ import Contains from './Contains/Contains';
 import Images from './Images/Images';
 import DialogInput from '../tools/DialogInput'
 import DialogConfirm from '../tools/DialogConfirm'
+import DialogComment from './DialogComment'
 import {PREFIX_TABS} from '../../const/prefix'
 
 const Control = (state) => {
@@ -24,13 +25,12 @@ const Control = (state) => {
 					</Tab>
 				</Tabs>
 			</Paper>
+			<DialogComment/>
 			<DialogInput />
 			<DialogConfirm />
 		</div>
 	);
 };
-
-;
 
 export default connect(
 	state => ({

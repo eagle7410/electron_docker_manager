@@ -48,10 +48,10 @@ const Actions = (state) => {
 	});
 
 	const handelDelete = () => handelTry(async () => {
-		state.confirmDeleteClose();
+		state.confirmEditClose();
 		await imageDelete({id});
 		state.imageDelete(id);
-	}, null, state.confirmDeleteClose);
+	}, null, state.confirmEditClose);
 
 	const handleEditLabelPorts = () => {
 		state.editLabelPorts(state.row.LABEL_PORTS, (dialog) => handelTry(async () => {
@@ -70,7 +70,7 @@ const Actions = (state) => {
 		targetOrigin={{horizontal: 'right', vertical: 'top'}}
 	>
 		<Divider />
-		<MenuItem primaryText="Delete" onClick={() => state.confirmDeleteOpen(handelDelete)}/>
+		<MenuItem primaryText="Delete" onClick={() => state.confirmEditOpen(handelDelete)}/>
 		<MenuItem primaryText="Save"   onClick={handelSave} />
 		<MenuItem primaryText="Edit label ports" onClick={() => handleEditLabelPorts()} />
 
@@ -90,8 +90,8 @@ export default connect(
 		wait     : (data)           => dispatch({type: `${PREFIX_IMAGES}_WAIT`, data}),
 		waitStop : ()               => dispatch({type: `${PREFIX_IMAGES}_WAIT_STOP`}),
 		imageDelete : (data)        => dispatch({type: `${PREFIX_IMAGES}_DELETE`, data}),
-		confirmDeleteClose : ()     => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_CLOSE`}),
-		confirmDeleteOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
+		confirmEditClose : ()     => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_CLOSE`}),
+		confirmEditOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
 			question    : 'You is sure?',
 			callConfirm : call
 		}}),

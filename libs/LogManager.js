@@ -3,15 +3,33 @@ const fs = require('fs-extra');
 const PATH_LOGS = `${__dirname}/../logs`;
 const PATH_CONTAINERS_PORTS_MAP = `${PATH_LOGS}/container-port-map.json`;
 const PATH_IMAGES_PORTS_MAP = `${PATH_LOGS}/image-port-map.json`;
+const PATH_COMMENTS = `${PATH_LOGS}/comments.json`;
 
-
+let comments = null;
 class LogManager {
 	static init() {
 		if (!fs.pathExistsSync(PATH_LOGS)) {
 			fs.mkdirsSync(PATH_LOGS);
 			fs.writeJsonSync(PATH_CONTAINERS_PORTS_MAP, {}, {spaces : '\t'});
 			fs.writeJsonSync(PATH_IMAGES_PORTS_MAP, {}, {spaces : '\t'});
+			fs.writeJsonSync(PATH_COMMENTS, {"containers" : {}, "images" : {}}, {spaces : '\t'});
 		}
+	}
+
+	static commentsLoad() {
+		return fs.readJson(PATH_COMMENTS);
+	}
+
+	static async commentsImages() {
+		if (!comments) comments = await this.commentsLoad();
+
+		return comments.images
+	}
+
+	static async commentsContainers() {
+		if (!comments) comments = await this.commentsLoad();
+
+		return comments.containers;
 	}
 
 	static imagesLabelPorts () {

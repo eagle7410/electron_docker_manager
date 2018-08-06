@@ -22,6 +22,7 @@ const PROPS_ORDER = [
 	'PORTS',
 	'STATUS',
 	'IMAGE',
+	'COMMENT',
 	'COMMAND',
 	'CREATED',
 ];

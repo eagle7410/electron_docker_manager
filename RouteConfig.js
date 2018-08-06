@@ -166,18 +166,21 @@ const config = [
 
 		const attach = {
 			containers : {
-				id    : 'CONTAINER ID',
-				ports : await LogManager.containersLabelPorts()
+				id       : 'CONTAINER ID',
+				ports    : await LogManager.containersLabelPorts(),
+				comments : await LogManager.commentsContainers()
 			},
 			images : {
-				id    : 'IMAGE ID',
-				ports : await LogManager.imagesLabelPorts()
+				id       : 'IMAGE ID',
+				ports    : await LogManager.imagesLabelPorts(),
+				comments : await LogManager.commentsImages()
 			}
 		};
 
 		for (let [from, data] of Object.entries(attach))
 			response.dockerInfo[from] = response.dockerInfo[from].map(item => {
 				item.LABEL_PORTS = data.ports[item[data.id]] || '';
+				item.COMMENT = data.comments[item[data.id]] || '';
 
 				return item;
 			});

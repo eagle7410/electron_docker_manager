@@ -17,6 +17,7 @@ const PROP_ORDER = [
 	'REPOSITORY',
 	'TAG',
 	'LABEL_PORTS',
+	'COMMENT',
 	'SIZE',
 	'CREATED',
 ];

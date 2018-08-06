@@ -12,7 +12,8 @@ import {
 	PREFIX_CONFIRM_DIALOG,
 	PREFIX_CONTAINER,
 	PREFIX_CONTAINER_LOGS_DIALOG,
-	PREFIX_CONTAINER_BASH
+	PREFIX_CONTAINER_BASH,
+	PREFIX_COMMENT
 } from '../../../const/prefix'
 import {
 	renameContainer,
@@ -84,8 +85,13 @@ const Actions = (state) => {
 		>
 			<Divider />
 			<MenuItem primaryText="Edit label ports" onClick={() => handleEditLabelPorts()} />
+			<MenuItem primaryText="Edit comment"     onClick={() => state.editCommentOpen({
+				id,
+				type : 'containers',
+				comment : state.row.COMMENT
+			})} />
 			<MenuItem primaryText="Rename"           onClick={() => state.renameOpen(handleRename)}/>
-			<MenuItem primaryText="Delete"           onClick={() => state.confirmDeleteOpen(handleDelete)}/>
+			<MenuItem primaryText="Delete"           onClick={() => state.confirmEditOpen(handleDelete)}/>
 			<MenuItem primaryText="Commit to image"  onClick={() => handleContainer2Image()} />
 			<MenuItem primaryText="Logs"             onClick={() => state.containerLogsOpen({id})} />
 			<MenuItem primaryText="Bash"
@@ -107,6 +113,7 @@ export default connect(
 		images : state.images
 	}),
 	dispatch => ({
+		editCommentOpen     : (data) => dispatch({type: `${PREFIX_COMMENT}_OPEN`, data}),
 		containerBashOpen   : (data) => dispatch({type: `${PREFIX_CONTAINER_BASH}_OPEN`, data}),
 		containerLogsOpen   : (data) => dispatch({type: `${PREFIX_CONTAINER_LOGS_DIALOG}_OPEN`, data}),
 		container2ImageOpen : (data) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
@@ -119,7 +126,7 @@ export default connect(
 			label      : 'Enter new name',
 			callSubmit : call
 		}}),
-		confirmDeleteOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
+		confirmEditOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
 			question    : 'You is sure?',
 			callConfirm : call
 		}}),
