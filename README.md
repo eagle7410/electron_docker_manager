@@ -1,9 +1,9 @@
 # Electron docker manager
 ## Example show
 ### Example tab containers
-![Password storage screenshot](https://raw.githubusercontent.com/eagle7410/electron_docker_manager/master/docs-attach/cont.png)
+![Password storage screenshot](https://raw.githubusercontent.com/eagle7410/electron_docker_manager/v2.0.12^/docs-attach/cont.png)
 ### Example tab images
-![Password storage screenshot](https://raw.githubusercontent.com/eagle7410/electron_docker_manager/master/docs-attach/img.png)
+![Password storage screenshot](https://raw.githubusercontent.com/eagle7410/electron_docker_manager/v2.0.12^/docs-attach/img.png)
 ## Cli
 
 Rebuild frontend
