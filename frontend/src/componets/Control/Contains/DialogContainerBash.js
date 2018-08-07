@@ -12,7 +12,7 @@ import {
 	PREFIX_CONTAINER_BASH
 } from '../../../const/prefix'
 
-import {containerBashExec} from '../../../api/api';
+import {containerBashExec, containerBashClose} from '../../../api/api';
 
 const PREFIX_KEY = 'prop_bash_container';
 const requiredProps = ['command'];
@@ -71,11 +71,20 @@ const DialogContainerBash = (state) => {
 		$buffer.remove();
 	};
 
+	const handlerClose = async () => {
+		try {
+			await containerBashClose();
+			state.close()
+		} catch (e) {
+			alert(e.message ? e.message : e);
+		}
+	};
+
 	return (
 		<span >
 			<Dialog
 				actions={[
-					<FlatButton onClick={() =>  state.close()}  label="Close" primary={true} />,
+					<FlatButton onClick={() => handlerClose()}  label="Close" primary={true} />,
 				]}
 				modal={true}
 				open={state.store.isOpen}

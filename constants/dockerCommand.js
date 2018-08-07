@@ -29,7 +29,8 @@ let commands = {
 	imageDelete          : ({id})       => `docker rmi ${id}`,
 	imagePull            : ({repository, tag}) => `docker pull ${repository}:${tag}`,
 	containerLogLines    : ({containerId, countLines}) => `docker logs ${containerId} --tail ${countLines}`,
-	containerBashOpen    : ({id}) => `docker exec -i ${id} bash`
+	containerBashOpen    : ({id}) => `docker exec -i ${id} bash`,
+	containerStats       : ({id}) => `docker stats ${id || ''} --no-stream`
 };
 
 module.exports = commands;

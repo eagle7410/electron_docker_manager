@@ -14,13 +14,15 @@ const imageEditLabelPorts     = (data)        => reqFull(save, '/image-edit-labe
 const imagePull               = (data)        => reqFull(save, '/image-pull', data);
 const containerLogs           = (data)        => reqFull(save, '/container-logs', data);
 const containerBashOpen       = (data)        => reqFull(save, '/container-bash-open', data);
-const containerBashClose      = (data)        => reqFull(save, '/container-bash-close', data);
+const containerBashClose      = ()            => reqFull(save, '/container-bash-close');
 const containerBashExec       = (data)        => reqFull(save, '/container-bash-exec', data);
 const commentSave             = (data)        => reqFull(save, '/comment-save', data);
+const containerStatsById      = (id)          => reqFull(save, '/container-stats-by-id', {id});
 
 export {
 	init,
 	commentSave,
+	containerStatsById,
 	containerBashExec,
 	containerBashClose,
 	containerBashOpen,

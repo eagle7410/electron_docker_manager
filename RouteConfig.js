@@ -27,6 +27,13 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/container-stats-by-id', async (res, action, data) => {
+		let stats = await ConsoleParser.containerStats(data.id);
+
+		if (stats.length) stats = stats.pop();
+
+		Send.ok(res, action, stats);
+	}),
 	route('/comment-save', async (res, action, data) => {
 		LogManager.commentSave(data);
 		Send.ok(res, action);
@@ -37,7 +44,7 @@ const config = [
 
 		Send.ok(res, action);
 	}),
-	route('/container-bash-close', async (res, action, data) => {
+	route('/container-bash-close', async (res, action) => {
 		if (shell) shell.down();
 		Send.ok(res, action);
 	}),

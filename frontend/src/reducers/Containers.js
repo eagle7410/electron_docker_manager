@@ -35,7 +35,14 @@ const containers = (state = initialState, action) => {
 				})
 			};
 
+		case `${PREFIX_CONTAINER}_WAIT_STOP`:
+			return {
+				...state,
+				wait : ''
+			};
+
 		case `${PREFIX_CONTAINER}_WAIT_CHANGE_STATUS`:
+		case `${PREFIX_CONTAINER}_WAIT_STATS`:
 			return {
 				...state,
 				wait : action.data
