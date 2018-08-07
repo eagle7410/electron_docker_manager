@@ -13,13 +13,15 @@ import {
 	PREFIX_CONTAINER,
 	PREFIX_CONTAINER_LOGS_DIALOG,
 	PREFIX_CONTAINER_BASH,
-	PREFIX_COMMENT
+	PREFIX_COMMENT,
+	PREFIX_CONTAINER_STATS
 } from '../../../const/prefix'
 import {
 	renameContainer,
 	deleteContainer,
 	containerEditLabelPorts,
-	containerBashOpen
+	containerBashOpen,
+	containerStatsById
 } from '../../../api/api';
 
 const Actions = (state) => {
@@ -75,6 +77,13 @@ const Actions = (state) => {
 		}
 	};
 
+	const handlerStats = () => handelTry(async () => {
+		state.wait(id);
+		const stats = await containerStatsById(id);
+		state.containerStatsOpen(id, stats);
+	},state.waitStop);
+
+	const isActive = state.row.STATUS.toLowerCase().includes('exit');
 
 	return (
 	<span>
@@ -94,16 +103,13 @@ const Actions = (state) => {
 			<MenuItem primaryText="Delete"           onClick={() => state.confirmEditOpen(handleDelete)}/>
 			<MenuItem primaryText="Commit to image"  onClick={() => handleContainer2Image()} />
 			<MenuItem primaryText="Logs"             onClick={() => state.containerLogsOpen({id})} />
-			<MenuItem primaryText="Bash"
-			          onClick={() => handlerBashOpen()}
-			          disabled={state.row.STATUS.toLowerCase().includes('exit')}
-			/>
+			<MenuItem primaryText="Show stats" disabled={isActive} onClick={() =>  handlerStats() }/>
+			<MenuItem primaryText="Bash" disabled={isActive} onClick={() => handlerBashOpen()} />
 
 			<Divider />
 			<MenuItem primaryText="Cancel"/>
 	    </IconMenu>
 	</span>
-
 	);
 };
 
@@ -113,10 +119,13 @@ export default connect(
 		images : state.images
 	}),
 	dispatch => ({
-		editCommentOpen     : (data) => dispatch({type: `${PREFIX_COMMENT}_OPEN`, data}),
-		containerBashOpen   : (data) => dispatch({type: `${PREFIX_CONTAINER_BASH}_OPEN`, data}),
-		containerLogsOpen   : (data) => dispatch({type: `${PREFIX_CONTAINER_LOGS_DIALOG}_OPEN`, data}),
-		container2ImageOpen : (data) => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
+		wait                : id            => dispatch({type: `${PREFIX_CONTAINER}_WAIT_STATS`, data: id}),
+		waitStop            : ()            => dispatch({type: `${PREFIX_CONTAINER}_WAIT_STOP`}),
+		containerStatsOpen  : (id, data)    => dispatch({type: `${PREFIX_CONTAINER_STATS}_OPEN`, data : {...data, id}}),
+		editCommentOpen     : (data)        => dispatch({type: `${PREFIX_COMMENT}_OPEN`, data}),
+		containerBashOpen   : (data)        => dispatch({type: `${PREFIX_CONTAINER_BASH}_OPEN`, data}),
+		containerLogsOpen   : (data)        => dispatch({type: `${PREFIX_CONTAINER_LOGS_DIALOG}_OPEN`, data}),
+		container2ImageOpen : (data)        => dispatch({type: `${PREFIX_CONTAINER_2_IMAGE}_OPEN`, data}),
 		editLabelPorts      : (input, call) => dispatch({type: `${PREFIX_INPUT_DIALOG}_OPEN`, data : {
 			label      : 'Edit label ports',
 			callSubmit : call,
@@ -126,7 +135,7 @@ export default connect(
 			label      : 'Enter new name',
 			callSubmit : call
 		}}),
-		confirmEditOpen  : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
+		confirmEditOpen     : (call) => dispatch({type: `${PREFIX_CONFIRM_DIALOG}_OPEN`, data : {
 			question    : 'You is sure?',
 			callConfirm : call
 		}}),

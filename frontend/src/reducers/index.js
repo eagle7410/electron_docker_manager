@@ -11,11 +11,12 @@ import {dialogPullImage} from './DialogPullImage'
 import {dialogContainerLogs} from './DialogContainerLogs'
 import {dialogContainerBash} from './DialogContainerBash'
 import {dialogComment} from './DialogComment'
-
+import {containerStats} from './ContainerStats'
 import {tabs} from './Tabs'
 
 const reducer = combineReducers({
 	routing: routerReducer,
+	containerStats,
 	dialogComment,
 	dialogContainerBash,
 	dialogContainerLogs,

@@ -19,6 +19,18 @@ class ConsoleParser {
 		return res;
 	}
 
+	static async containerStats(id) {
+		const handlerLine = (row, header) => {
+			let obj = {};
+
+			row.map((val, num) => obj[header[num]] = val);
+
+			return obj;
+		};
+
+		return this.dockerOut(await Cmd.get(commands.containerStats({id})), handlerLine);
+	}
+
 	static async allContainers() {
 		const handlerLine = (row, header) => {
 			let obj = {};

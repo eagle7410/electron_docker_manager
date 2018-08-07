@@ -50,16 +50,6 @@ const correctPackageJson = () => new Promise((ok, bad) => {
 	});
 });
 
-// TODO: Back Clear
-const setInitialConfig = async () => {
-	try {
-
-		log.success('setInitialConfig ok.');
-	} catch (err) {
-		log.error('setInitialConfig err', err);
-	}
-};
-
 const clearLogFile = async () => {
 	const transform = data => new Promise(write => write('This is log file\n'));
 
@@ -73,7 +63,6 @@ void async function createProdStart() {
 	try {
 		await createIndex();
 		await correctPackageJson();
-		await setInitialConfig();
 		await clearLogFile();
 
 		log.success('Success ...');
