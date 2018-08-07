@@ -17,9 +17,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "install-dev": "npm i && cd frontend && npm i",
-    "pkg-linux": "electron-packager . DockerManager --overwrite --platform=linux  --arch=x64  --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.png --prune=true --out=app_build",
-    "pkg-win": "electron-packager . DockerManager --overwrite --platform=win32  --arch=ia32 --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.ico --prune=true --out=app_build -version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Manadger'",
-    "pkg-mac": "electron-packager . DockerManager --overwrite --platform=darwin --arch=x64  --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.icns --prune=true --out=app_build"
+    "pkg-linux": "electron-packager . docker-manager --overwrite --platform=linux  --arch=x64  --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.png --prune=true --out=app_build",
+    "pkg-win": "electron-packager . docker-manager --overwrite --platform=win32  --arch=x64 --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.ico --prune=true --out=app_build -version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Manadger'",
+    "pkg-mac": "electron-packager . docker-manager --overwrite --platform=darwin --arch=x64  --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.icns --prune=true --out=app_build"
   },
   "bugs": {
     "url": "https://github.com/eagle7410/electron_docker_manager/issues"

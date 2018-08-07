@@ -6,10 +6,10 @@ const MainMenu      = require('./MainMenu');
 let isDev = false;
 const includes = async () => {
 	try {
-		let mainWindow = new BrowserWindow({});
+		let mainWindow = new BrowserWindow({icon: `${__dirname}/fav.png`});
 		mainWindow.maximize();
 		await Server.run(mainWindow, isDev);
-		
+
 		mainWindow.loadURL(`file://${__dirname}/html/index.html`);
 		mainWindow.on('closed', () => {
 			mainWindow = null;

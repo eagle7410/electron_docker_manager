@@ -17,7 +17,7 @@ node ./cli/prod-start.js
 ```
 
 ## Version
-1.0.0 - base.
+2.0.x - base.
 
 ## People
 Developer [Igor Stcherbina](https://github.com/eagle7410)
