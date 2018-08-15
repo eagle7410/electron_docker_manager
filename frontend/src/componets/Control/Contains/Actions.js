@@ -14,7 +14,8 @@ import {
 	PREFIX_CONTAINER_LOGS_DIALOG,
 	PREFIX_CONTAINER_BASH,
 	PREFIX_COMMENT,
-	PREFIX_CONTAINER_STATS
+	PREFIX_CONTAINER_STATS,
+	PREFIX_CONTAINER_LIMITS
 } from '../../../const/prefix'
 import {
 	renameContainer,
@@ -104,6 +105,7 @@ const Actions = (state) => {
 			<MenuItem primaryText="Commit to image"  onClick={() => handleContainer2Image()} />
 			<MenuItem primaryText="Logs"             onClick={() => state.containerLogsOpen({id})} />
 			<MenuItem primaryText="Show stats" disabled={isActive} onClick={() =>  handlerStats() }/>
+			<MenuItem primaryText="Set limits" onClick={() =>  state.containerLimitsOpen(id) }/>
 			<MenuItem primaryText="Bash" disabled={isActive} onClick={() => handlerBashOpen()} />
 
 			<Divider />
@@ -121,6 +123,7 @@ export default connect(
 	dispatch => ({
 		wait                : id            => dispatch({type: `${PREFIX_CONTAINER}_WAIT_STATS`, data: id}),
 		waitStop            : ()            => dispatch({type: `${PREFIX_CONTAINER}_WAIT_STOP`}),
+		containerLimitsOpen : id            => dispatch({type: `${PREFIX_CONTAINER_LIMITS}_OPEN`, data : {id} }),
 		containerStatsOpen  : (id, data)    => dispatch({type: `${PREFIX_CONTAINER_STATS}_OPEN`, data : {...data, id}}),
 		editCommentOpen     : (data)        => dispatch({type: `${PREFIX_COMMENT}_OPEN`, data}),
 		containerBashOpen   : (data)        => dispatch({type: `${PREFIX_CONTAINER_BASH}_OPEN`, data}),

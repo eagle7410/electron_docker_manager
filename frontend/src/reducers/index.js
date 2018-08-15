@@ -12,10 +12,12 @@ import {dialogContainerLogs} from './DialogContainerLogs'
 import {dialogContainerBash} from './DialogContainerBash'
 import {dialogComment} from './DialogComment'
 import {containerStats} from './ContainerStats'
+import {containerLimits} from './ContainerLimits'
 import {tabs} from './Tabs'
 
 const reducer = combineReducers({
 	routing: routerReducer,
+	containerLimits,
 	containerStats,
 	dialogComment,
 	dialogContainerBash,

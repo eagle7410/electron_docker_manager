@@ -15,6 +15,7 @@ import DialogContainerToImage from './DialogContainerToImage';
 import DialogContainerLogs from './DialogContainerLogs';
 import DialogContainerBash from './DialogContainerBash';
 import ContainerStats from './ContainerStats'
+import ContainerLimits from './ContainerLimits'
 import TextField from "material-ui/TextField/index";
 
 const PROPS_ORDER = [
@@ -85,6 +86,7 @@ const Contains = (state) => {
 			<DialogContainerLogs/>
 			<DialogContainerBash/>
 			<ContainerStats/>
+			<ContainerLimits/>
 		</div>
 	);
 };
