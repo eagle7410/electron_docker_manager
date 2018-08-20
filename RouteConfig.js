@@ -27,6 +27,11 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/container-limit-set-by-id', async (res, action, data) => {
+		await Cmd.get(commands.containerLimit(data));
+
+		Send.ok(res, action);
+	}),
 	route('/container-stats-by-id', async (res, action, data) => {
 		let stats = await ConsoleParser.containerStats(data.id);
 
