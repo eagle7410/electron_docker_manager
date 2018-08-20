@@ -30,7 +30,13 @@ let commands = {
 	imagePull            : ({repository, tag}) => `docker pull ${repository}:${tag}`,
 	containerLogLines    : ({containerId, countLines}) => `docker logs ${containerId} --tail ${countLines}`,
 	containerBashOpen    : ({id}) => `docker exec -i ${id} bash`,
-	containerStats       : ({id}) => `docker stats ${id || ''} --no-stream`
+	containerStats       : ({id}) => `docker stats ${id || ''} --no-stream`,
+	containerLimit       : ({id, cpus, memory}) => {
+		const partCpus = cpus ? `--cpus=${cpus}` : '';
+		const partMemory = memory ? `-m=${memory}M` : '';
+
+		return `docker update ${partCpus} ${partMemory} ${id}`;
+	}
 };
 
 module.exports = commands;

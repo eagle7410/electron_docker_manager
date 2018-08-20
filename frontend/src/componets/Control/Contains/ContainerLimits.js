@@ -9,7 +9,7 @@ import {
 	PREFIX_CONTAINER_LIMITS as PREFIX
 } from '../../../const/prefix'
 
-import {containerLimits} from '../../../api/api';
+import {containerLimit} from '../../../api/api';
 import LoadAnimation from "../../tools/LoadAnimation";
 
 const PREFIX_KEY = 'prop_container_limits';
@@ -44,7 +44,6 @@ const ContainerLimits = (state) => {
 	const handelUpdate = async () => {
 		if (!validate()) return false;
 
-		let count = 0;
 		let data  = {};
 
 		for(const prop of Object.keys(fieldsLabel) ) data[prop] = state.store[prop];
@@ -55,7 +54,7 @@ const ContainerLimits = (state) => {
 		state.load();
 
 		try {
-			state.save(await containerStatsById(state.store.id));
+			state.save(await containerLimit(data));
 		} catch (e) {
 			alert(e.message ? e.message : e);
 		} finally {
