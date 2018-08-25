@@ -1,4 +1,12 @@
 # Electron docker manager
+
+NOTE :  
+> For mackbook need run from terminal with admin privilegas.
+> 
+> ``` 
+> osascript -e "do shell scrip \"PATH TO APP BINARY\" with administrator privilegas" 
+> ``` 
+
 ## Example show
 ### Example tab containers
 ![Password storage screenshot](https://raw.githubusercontent.com/eagle7410/electron_docker_manager/v2.0.12/docs-attach/cont.png)
@@ -15,12 +23,12 @@ Build production application start.
 ```
 node ./cli/prod-start.js
 ```
-
+  
 ## Version
 2.0.x - base.
 
 ## People
-Developer [Igor Stcherbina](https://github.com/eagle7410)
+Developer [Igor Stcherbina](https://drive.google.com/file/d/1tm6j8uGoeEbaVDYKlsQlkkxAD5WMXp3-/view?usp=sharing)
 
 ## License
 
