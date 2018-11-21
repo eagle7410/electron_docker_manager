@@ -15,7 +15,7 @@ const ButtomStatus = (state) => {
 	let cls       = '';
 	let bg        = '';
 
-	const isRun = !state.row.STATUS.toLowerCase().includes('exit');
+	const isRun = state.row.STATUS.substring(0, 3) === 'Up ';
 	const id    = state.row['CONTAINER ID'];
 
 	if (isRun) {

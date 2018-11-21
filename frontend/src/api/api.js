@@ -19,9 +19,11 @@ const containerBashExec       = (data)        => reqFull(save, '/container-bash-
 const commentSave             = (data)        => reqFull(save, '/comment-save', data);
 const containerStatsById      = (id)          => reqFull(save, '/container-stats-by-id', {id});
 const containerLimit          = (data)        => reqFull(save, '/container-limit-set-by-id', data);
+const containers              = ()            => reqFull(save, '/containers');
 
 export {
 	init,
+	containers,
 	commentSave,
 	containerLimit,
 	containerStatsById,

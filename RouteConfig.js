@@ -27,6 +27,25 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/containers', async (res, action, data) => {
+		let containers = await ConsoleParser.allContainers();
+
+		const attach = {
+			id       : 'CONTAINER ID',
+			ports    : await LogManager.containersLabelPorts(),
+			comments : await LogManager.commentsContainers()
+		};
+
+		containers = containers.map(item => {
+			item.LABEL_PORTS = attach.ports[item[attach.id]] || '';
+			item.COMMENT = attach.comments[item[attach.id]] || '';
+
+			return item;
+		});
+
+		Send.ok(res, action, {containers});
+	}),
+
 	route('/container-limit-set-by-id', async (res, action, data) => {
 		await Cmd.get(commands.containerLimit(data));
 
