@@ -27,6 +27,34 @@ const route = (route, handler, method) => ({
 });
 
 const config = [
+	route('/attach-load', async (res, action, {path}) => {
+		if(Array.isArray(path)) path = path.pop();
+		await LogManager.loadFrom(path);
+		Send.ok(res, action);
+	}),
+	route('/attach-save', async (res, action, {path}) => {
+		await LogManager.saveTo(path);
+		Send.ok(res, action);
+	}),
+	route('/containers', async (res, action) => {
+		let containers = await ConsoleParser.allContainers();
+
+		const attach = {
+			id       : 'CONTAINER ID',
+			ports    : await LogManager.containersLabelPorts(),
+			comments : await LogManager.commentsContainers()
+		};
+
+		containers = containers.map(item => {
+			item.LABEL_PORTS = attach.ports[item[attach.id]] || '';
+			item.COMMENT = attach.comments[item[attach.id]] || '';
+
+			return item;
+		});
+
+		Send.ok(res, action, {containers});
+	}),
+
 	route('/container-limit-set-by-id', async (res, action, data) => {
 		await Cmd.get(commands.containerLimit(data));
 
@@ -106,10 +134,10 @@ const config = [
 		const path = await FileSystemDialog.openFileFrom(windowMain);
 		Send.ok(res, action, {path : path || null});
 	}),
-	route('/path-save', async (res, action) => {
+	route('/path-save', async (res, action, {isUseTar}) => {
 		let path = await FileSystemDialog.saveFileTo(windowMain) || null;
 
-		if (path && !path.includes('.tar')) path += '.tar';
+		if (isUseTar && path && !path.includes('.tar')) path += '.tar';
 
 		Send.ok(res, action, {path });
 	}),

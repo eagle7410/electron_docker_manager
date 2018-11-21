@@ -4,6 +4,7 @@ import {
 } from '../const/prefix'
 const initialState = {
 	data : [],
+	isRefresh : false,
 	wait : ''
 };
 
@@ -13,6 +14,18 @@ const containers = (state = initialState, action) => {
 
 	// eslint-disable-next-line
 	switch (action.type) {
+		case `${PREFIX_CONTAINER}_REFRESH_RUN`:
+			return {
+				...state,
+				isRefresh : true,
+			};
+
+		case `${PREFIX_CONTAINER}_REFRESH_STOP`:
+			return {
+				...state,
+				isRefresh : false,
+			};
+
 		case `${PREFIX_COMMENT}_SAVE`:
 			newState = {...state};
 

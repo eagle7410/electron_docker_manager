@@ -32,11 +32,11 @@ const Images = (state) => {
 	let rows;
 
 	if (data.length) {
-		rows = data.map(row => {
+		rows = data.map((row,inx) => {
 			const id = row[idProp];
 
 			return (
-				<TableRow key={`img_${id}`}>
+				<TableRow key={`img_${id}_${inx}`}>
 					<TableRowColumn><Actions row={row}/> {id}</TableRowColumn>
 					{PROP_ORDER.map((prop, inx) => (
 						<TableRowColumn key={`img_cell_${id}_${inx}`}>
@@ -60,8 +60,8 @@ const Images = (state) => {
 	}
 
 	return (
-		<div>
-			<Table>
+		<div key={'images_base'}>
+			<Table  key={'images_table'}>
 				<TableHeader displaySelectAll={false}>
 					<TableRow>
 						<TableHeaderColumn colSpan={COLUMN_COUNT}>

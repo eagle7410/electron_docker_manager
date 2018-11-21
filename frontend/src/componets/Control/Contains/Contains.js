@@ -37,11 +37,11 @@ const Contains = (state) => {
 	let rows;
 
 	if (data.length) {
-		rows = data.map(n => {
+		rows = data.map((n, inx) => {
 			const id = n['CONTAINER ID'];
 
 			return (
-				<TableRow key={`cont_${id}`}>
+				<TableRow key={`cont_${id}_${inx}`}>
 					<TableRowColumn>
 						<Actions row={n}/>
 						<ButtonStatus row={n}/>
@@ -67,8 +67,8 @@ const Contains = (state) => {
 	}
 
 	return (
-		<div>
-			<Table>
+		<div key={'contr'}>
+			<Table key={'table_containers'}>
 				<TableHeader displaySelectAll={false}>
 					<TableRow>
 						<TableHeaderColumn colSpan={PROPS_ORDER.length + 1}>

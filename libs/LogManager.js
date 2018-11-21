@@ -16,6 +16,29 @@ class LogManager {
 		}
 	}
 
+	static async loadFrom(path) {
+		const {
+			containersPorts,
+			imagesPorts,
+			comments
+		} = await fs.readJson(path);
+
+		await fs.writeJson(PATH_CONTAINERS_PORTS_MAP, containersPorts, {spaces : '\t'});
+		await fs.writeJson(PATH_IMAGES_PORTS_MAP, imagesPorts, {spaces : '\t'});
+		await fs.writeJson(PATH_COMMENTS, comments, {spaces : '\t'});
+
+		return true;
+	}
+	static async saveTo(path) {
+		const containersPorts = await fs.readJson(PATH_CONTAINERS_PORTS_MAP);
+		const imagesPorts = await fs.readJson(PATH_IMAGES_PORTS_MAP);
+		const comments = await fs.readJson(PATH_COMMENTS);
+
+		await fs.writeJson(path, {containersPorts, imagesPorts, comments}, {spaces : '\t'});
+
+		return true;
+	}
+
 	static commentsLoad() {
 		return fs.readJson(PATH_COMMENTS);
 	}
