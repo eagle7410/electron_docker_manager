@@ -5,7 +5,8 @@ const toggleContainer         = (id, isRun)   => reqFull(save, '/container-toggl
 const renameContainer         = (id, newname) => reqFull(save, '/container-rename', {newname, id});
 const deleteContainer         = (id)          => reqFull(save, '/container-delete', {id});
 const createContainer         = data          => reqFull(save, '/container', data);
-const saveFilePath            = ()            => reqFull(save, '/path-save');
+const saveFilePath            = (isTar=true)  => reqFull(save, '/path-save', {isUseTar : isTar});
+const openFilePath            = ()            => reqFull(save, '/path-open');
 const containerToImage        = (data)        => reqFull(save, '/container-commit', data);
 const containerEditLabelPorts = (data)        => reqFull(save, '/container-edit-label-ports', data);
 const imageSave               = (data)        => reqFull(save, '/image-save', data);
@@ -20,9 +21,13 @@ const commentSave             = (data)        => reqFull(save, '/comment-save', 
 const containerStatsById      = (id)          => reqFull(save, '/container-stats-by-id', {id});
 const containerLimit          = (data)        => reqFull(save, '/container-limit-set-by-id', data);
 const containers              = ()            => reqFull(save, '/containers');
+const saveAttach              = (data)            => reqFull(save, '/attach-save', data);
+const loadAttach              = (data)            => reqFull(save, '/attach-load', data);
 
 export {
 	init,
+	loadAttach,
+	saveAttach,
 	containers,
 	commentSave,
 	containerLimit,
@@ -37,6 +42,7 @@ export {
 	renameContainer,
 	deleteContainer,
 	createContainer,
+	openFilePath,
 	saveFilePath,
 	imageSave,
 	imageDelete,

@@ -77,7 +77,7 @@ const ContainerLimits = (state) => {
 				open={state.store.isOpen}
 			>
 				{Object.keys(fieldsLabel).map(prop =>
-					<div>
+					<div key={PREFIX_KEY + '_div_' + prop}>
 						<TextField
 							key={PREFIX_KEY + '_' + prop}
 							value={state.store[prop]}

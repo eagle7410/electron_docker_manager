@@ -14,6 +14,7 @@ import {dialogComment} from './DialogComment'
 import {containerStats} from './ContainerStats'
 import {containerLimits} from './ContainerLimits'
 import {tabs} from './Tabs'
+import {settings} from './Settings'
 
 const reducer = combineReducers({
 	routing: routerReducer,
@@ -30,7 +31,8 @@ const reducer = combineReducers({
 	dataLoader,
 	containers,
 	tabs,
-	images
+	images,
+	settings
 });
 
 export {reducer};
