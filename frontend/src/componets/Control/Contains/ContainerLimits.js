@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
 import {
-	PREFIX_CONTAINER_BASH,
 	PREFIX_CONTAINER_LIMITS as PREFIX
 } from '../../../const/prefix'
 

@@ -8,8 +8,8 @@ import {
 
 const socketClient = new SocketClient();
 class SocketListen extends Component {
-	constructor(props){
-		super(props);
+
+	componentDidMount() {
 		socketClient.on('out-add', this.props.addOut);
 	}
 

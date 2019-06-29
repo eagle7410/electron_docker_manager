@@ -48,7 +48,6 @@ class ConsoleParser {
 		return this.dockerOut(await Cmd.get(commands.containersAll), handlerLine);
 	}
 
-
 	static async allImages() {
 		const handlerLine = (row, header) => {
 			let obj = {};

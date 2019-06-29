@@ -1,5 +1,4 @@
-const electron = window.require('electron');
-const ipcRenderer = electron.ipcRenderer;
+const ipcRenderer = window.ipcRenderer;
 
 /**
  * Send to server.

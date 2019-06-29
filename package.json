@@ -1,6 +1,6 @@
 {
   "name": "electron_docker_manager",
-  "version": "1.0.0",
+  "version": "3.0.1",
   "description": "Manager for docker. Use  electron js.",
   "main": "index-app.js",
   "repository": {
@@ -19,7 +19,7 @@
     "install-dev": "npm i && cd frontend && npm i",
     "pkg-linux": "electron-packager . docker-manager --overwrite --platform=linux  --arch=x64  --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.png --prune=true --out=app_build",
     "pkg-win": "electron-packager . docker-manager --overwrite --platform=win32  --arch=x64 --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.ico --prune=true --out=app_build -version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Manadger'",
-    "pkg-mac": "electron-packager . docker-manager --overwrite --platform=darwin --arch=x64  --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.icns --prune=true --out=app_build"
+    "pkg-mac": "electron-packager . docker-manager --overwrite --prune=true --platform=darwin --arch=x64  --ignore='.jscsrc|/docs-attach|/app_build|/frontend|/cli|/*-dev|.gitignore|/.idea|/node_modules/(babel*|gulp*|electron*|grunt*)|/.idea/' --icon=fav.icns --prune=true --out=app_build --app-version=3.0.1"
   },
   "bugs": {
     "url": "https://github.com/eagle7410/electron_docker_manager/issues"
@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "console-color": "https://github.com/eagle7410/console-color.git",
-    "electron": "2.0.5",
+    "electron": "^5.0.6",
     "electron-devtools-installer": "2.2.4",
-    "electron-packager": "12.1.0"
+    "electron-packager": "12.2.0"
   }
 }

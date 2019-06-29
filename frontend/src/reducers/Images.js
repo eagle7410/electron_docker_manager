@@ -1,7 +1,9 @@
-import {PREFIX_COMMENT, PREFIX_IMAGES} from '../const/prefix'
+import {PREFIX_COMMENT, PREFIX_CONTAINER, PREFIX_IMAGES} from '../const/prefix'
 const initialState = {
 	data : [],
+	selected  : [],
 	wait : '',
+	isRefresh : false,
 };
 
 const images = (state = initialState, action) => {
@@ -9,6 +11,24 @@ const images = (state = initialState, action) => {
 
 	// eslint-disable-next-line
 	switch (action.type) {
+
+		case `${PREFIX_IMAGES}_SELECTED`:
+			return {
+				...state,
+				selected : action.data,
+			};
+		case `${PREFIX_IMAGES}_REFRESH_RUN`:
+			return {
+				...state,
+				isRefresh : true,
+			};
+
+		case `${PREFIX_IMAGES}_REFRESH_STOP`:
+			return {
+				...state,
+				selected  : [],
+				isRefresh : false,
+			};
 		case `${PREFIX_COMMENT}_SAVE`:
 			newState = {...state};
 
