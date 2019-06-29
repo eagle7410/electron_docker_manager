@@ -1,9 +1,10 @@
 import {
 	PREFIX_CONTAINER,
-	PREFIX_COMMENT
+	PREFIX_COMMENT, PREFIX_CONTAINER as PREFIX
 } from '../const/prefix'
 const initialState = {
 	data : [],
+	selected : [],
 	isRefresh : false,
 	wait : ''
 };
@@ -14,6 +15,13 @@ const containers = (state = initialState, action) => {
 
 	// eslint-disable-next-line
 	switch (action.type) {
+
+		case `${PREFIX}_SELECTED`:
+
+			return {
+				...state,
+				selected : action.data
+			};
 		case `${PREFIX_CONTAINER}_REFRESH_RUN`:
 			return {
 				...state,
@@ -23,6 +31,7 @@ const containers = (state = initialState, action) => {
 		case `${PREFIX_CONTAINER}_REFRESH_STOP`:
 			return {
 				...state,
+				selected  : [],
 				isRefresh : false,
 			};
 
@@ -74,6 +83,12 @@ const containers = (state = initialState, action) => {
 			return {
 				...state,
 				data,
+				wait : ''
+			};
+
+		case `${PREFIX_CONTAINER}_WAIT_CLEAR`:
+			return {
+				...state,
 				wait : ''
 			};
 

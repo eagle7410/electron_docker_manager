@@ -19,7 +19,12 @@ const includes = async () => {
 
 		//~ End dev setting
 
-		let mainWindow = new BrowserWindow({});
+		let mainWindow = new BrowserWindow({
+			webPreferences: {
+				nodeIntegration: false,
+				preload: __dirname + '/preload.js'
+			}
+		});
 		mainWindow.maximize();
 
 		await Server.run(mainWindow, isDev);

@@ -8,6 +8,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentSave from 'material-ui/svg-icons/content/content-copy';
 import AvLoop from 'material-ui/svg-icons/av/loop';
 
+
 import {
 	PREFIX_CONTAINER_BASH
 } from '../../../const/prefix'
@@ -114,11 +115,18 @@ const DialogContainerBash = (state) => {
 						{ state.store.isLoad ? <AvLoop /> : <ContentAdd/> }
 				    </FloatingActionButton>
 					<TextField
+						ref={node => {
+							if (node) node.input.focus();
+						}}
+						className={'CMD_INPUT'}
 						key={PREFIX_KEY + '_command'}
-						value={state.store.command}
+						value={`${state.store.place} $ ${state.store.command}`}
 						floatingLabelText={textFieldsLabels.command}
 						errorText={state.store.errors.command || ''}
-						onChange={(event, string) => state.input('command', string)}
+						onChange={(event, string) => {
+
+							state.input('command', string.split('$')[1].trimLeft())
+						}}
 						onKeyDown={(event) => {
 							if (event.keyCode === 13 && state.store.command)
 								handelSubmit();
@@ -151,7 +159,10 @@ export default connect(
 		load     : ()             => dispatch({type: `${PREFIX_CONTAINER_BASH}_LOAD`}),
 		loadStop : ()             => dispatch({type: `${PREFIX_CONTAINER_BASH}_LOAD_STOP`}),
 		errors   : data           => dispatch({type: `${PREFIX_CONTAINER_BASH}_ERRORS`, data}),
-		exec     : data           => dispatch({type: `${PREFIX_CONTAINER_BASH}_EXEC`}),
+		exec     : data           => {
+			dispatch({type: `${PREFIX_CONTAINER_BASH}_EXEC`});
+			// TODO: Back add add out
+		},
 		close    : ()             => dispatch({type: `${PREFIX_CONTAINER_BASH}_CLOSE`}),
 		input    : (field, value) => dispatch({type: `${PREFIX_CONTAINER_BASH}_INPUT`, data : {field, value}}),
 	})

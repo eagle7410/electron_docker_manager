@@ -19,6 +19,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "electron-devtools-installer": "2.2.3"
+    "electron-devtools-installer": "2.2.3",
+    "react-app-rewired": "^2.1.3"
   }
 }

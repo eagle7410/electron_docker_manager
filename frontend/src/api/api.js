@@ -21,10 +21,12 @@ const commentSave             = (data)        => reqFull(save, '/comment-save', 
 const containerStatsById      = (id)          => reqFull(save, '/container-stats-by-id', {id});
 const containerLimit          = (data)        => reqFull(save, '/container-limit-set-by-id', data);
 const containers              = ()            => reqFull(save, '/containers');
+const images                  = ()            => reqFull(save, '/images');
 const saveAttach              = (data)            => reqFull(save, '/attach-save', data);
 const loadAttach              = (data)            => reqFull(save, '/attach-load', data);
 
 export {
+	images,
 	init,
 	loadAttach,
 	saveAttach,

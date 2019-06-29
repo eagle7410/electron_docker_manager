@@ -36,6 +36,24 @@ const config = [
 		await LogManager.saveTo(path);
 		Send.ok(res, action);
 	}),
+	route('/images', async (res, action) => {
+		let images = await ConsoleParser.allImages();
+
+		const attach = {
+			id       : 'IMAGE ID',
+			ports    : await LogManager.imagesLabelPorts(),
+			comments : await LogManager.commentsImages()
+		};
+
+		images = images.map(item => {
+			item.LABEL_PORTS = attach.ports[item[attach.id]] || '';
+			item.COMMENT = attach.comments[item[attach.id]] || '';
+
+			return item;
+		});
+
+		Send.ok(res, action, {images});
+	}),
 	route('/containers', async (res, action) => {
 		let containers = await ConsoleParser.allContainers();
 
@@ -172,7 +190,6 @@ const config = [
 	}),
 	route('/container-toggle-run', async (res, action, data) => {
 		await Cmd.get(commands.toggleRun(data));
-
 		let container = await ConsoleParser.getOneContainer(data.id);
 
 		Send.ok(res, action, {container})

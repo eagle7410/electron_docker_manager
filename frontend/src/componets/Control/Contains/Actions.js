@@ -118,7 +118,7 @@ const Actions = (state) => {
 export default connect(
 	state => ({
 		dialog : state.dialogInput,
-		images : state.images
+		images : state.images,
 	}),
 	dispatch => ({
 		wait                : id            => dispatch({type: `${PREFIX_CONTAINER}_WAIT_STATS`, data: id}),

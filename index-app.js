@@ -6,7 +6,12 @@ const MainMenu      = require('./MainMenu');
 let isDev = false;
 const includes = async () => {
 	try {
-		let mainWindow = new BrowserWindow({});
+		let mainWindow = new BrowserWindow({
+			webPreferences: {
+				nodeIntegration: false,
+				preload: __dirname + '/preload.js'
+			}
+		});
 		mainWindow.maximize();
 		await Server.run(mainWindow, isDev);
 		
