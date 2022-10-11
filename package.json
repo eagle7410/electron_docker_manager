@@ -34,6 +34,6 @@
     "console-color": "https://github.com/eagle7410/console-color.git",
     "electron": "^5.0.6",
     "electron-devtools-installer": "2.2.4",
-    "electron-packager": "12.2.0"
+    "electron-packager": "16.0.0"
   }
 }
